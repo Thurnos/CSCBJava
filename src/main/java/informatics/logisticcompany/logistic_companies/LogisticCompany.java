@@ -1,15 +1,22 @@
 package informatics.logisticcompany.logistic_companies;
 
+import informatics.logisticcompany.client.Client;
+import informatics.logisticcompany.employees.Employee;
+import informatics.logisticcompany.office_branches.OfficeBranch;
+import informatics.logisticcompany.shipment.Shipment;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "logistic_companies")
 public class LogisticCompany {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "logistic_company_id")
@@ -22,7 +29,19 @@ public class LogisticCompany {
     private String address;
 
     @Column(name = "logistic_company_foundation_date")
-    private Date foundationDate;
+    private LocalDate foundationDate;
+
+    @OneToMany(mappedBy = "logisticCompany")
+    private Set<OfficeBranch> officeBranches;
+
+    @OneToMany(mappedBy = "logisticCompany")
+    private Set<Employee> employees;
+
+    @OneToMany(mappedBy = "logisticCompany")
+    private Set<Client> clients;
+
+    @OneToMany(mappedBy = "logisticCompany")
+    private Set<Shipment> shipments;
 
     public Long getId() {
         return id;
@@ -48,11 +67,19 @@ public class LogisticCompany {
         this.address = address;
     }
 
-    public Date getFoundationDate() {
+    public LocalDate getFoundationDate() {
         return foundationDate;
     }
 
-    public void setFoundationDate(Date foundationDate) {
+    public void setFoundationDate(LocalDate foundationDate) {
+        this.foundationDate = foundationDate;
+    }
+
+    public LogisticCompany() {  }
+
+    public LogisticCompany(String name, String address, LocalDate foundationDate) {
+        this.name = name;
+        this.address = address;
         this.foundationDate = foundationDate;
     }
 
@@ -65,7 +92,4 @@ public class LogisticCompany {
                 ", foundationDate=" + foundationDate +
                 '}';
     }
-
-
-    // Getters, setters, and constructors
 }

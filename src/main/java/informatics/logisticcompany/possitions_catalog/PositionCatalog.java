@@ -1,19 +1,27 @@
 package informatics.logisticcompany.possitions_catalog;
 
+import informatics.logisticcompany.employees.Employee;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+
+import java.util.Set;
+
 @Entity
 @Table(name = "position_catalog")
 public class PositionCatalog {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "position_catalog_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "position_name")
     private String name;
+
+    @OneToMany(mappedBy = "position")
+    private Set<Employee> employees;
 
     public Long getId() {
         return id;
@@ -31,6 +39,12 @@ public class PositionCatalog {
         this.name = name;
     }
 
+    public PositionCatalog() {  }
+
+    public PositionCatalog(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "PositionCatalog{" +
@@ -38,6 +52,4 @@ public class PositionCatalog {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-// Getters, setters, and constructors
 }

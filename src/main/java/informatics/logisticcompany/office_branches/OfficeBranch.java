@@ -1,12 +1,17 @@
 package informatics.logisticcompany.office_branches;
+import informatics.logisticcompany.employees.Employee;
 import informatics.logisticcompany.logistic_companies.LogisticCompany;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+
+import java.util.Set;
+
 @Entity
 @Table(name = "office_branches")
 public class OfficeBranch {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "office_branch_id")
@@ -21,6 +26,9 @@ public class OfficeBranch {
     @ManyToOne
     @JoinColumn(name = "logistic_company_id")
     private LogisticCompany logisticCompany;
+
+    @OneToMany(mappedBy = "officeBranch")
+    private Set<Employee> employees;
 
     public Long getId() {
         return id;
@@ -54,6 +62,14 @@ public class OfficeBranch {
         this.logisticCompany = logisticCompany;
     }
 
+    public OfficeBranch() {  }
+
+    public OfficeBranch(String name, String address, LogisticCompany logisticCompany) {
+        this.name = name;
+        this.address = address;
+        this.logisticCompany = logisticCompany;
+    }
+
     @Override
     public String toString() {
         return "OfficeBranch{" +
@@ -63,6 +79,4 @@ public class OfficeBranch {
                 ", logisticCompany=" + logisticCompany +
                 '}';
     }
-
-// Constructors, getters, and setters
 }

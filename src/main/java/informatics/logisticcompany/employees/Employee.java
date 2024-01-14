@@ -1,18 +1,23 @@
 package informatics.logisticcompany.employees;
 
+import informatics.logisticcompany.logistic_companies.LogisticCompany;
+import informatics.logisticcompany.office_branches.OfficeBranch;
+import informatics.logisticcompany.possitions_catalog.PositionCatalog;
+import informatics.logisticcompany.shipment.Shipment;
+import informatics.logisticcompany.users.User;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "users_user_id")
-    private Long id;
+@PrimaryKeyJoinColumn(name = "users_user_id")
+public class Employee extends User {
 
     @Column(name = "employee_first_name")
     private String firstName;
@@ -21,25 +26,22 @@ public class Employee {
     private String lastName;
 
     @Column(name = "employee_birth_date")
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    @Column(name = "logistic_company_id")
-    private Long logisticCompanyId;
+    @ManyToOne
+    @JoinColumn(name = "logistic_company_id")
+    private LogisticCompany logisticCompany;
 
-    @Column(name = "office_branch_id")
-    private Long officeBranchId;
+    @ManyToOne
+    @JoinColumn(name = "office_branch_id")
+    private OfficeBranch officeBranch;
 
-    @Column(name = "employee_position")
-    private Integer position;
+    @ManyToOne
+    @JoinColumn(name = "employee_position")
+    private PositionCatalog position;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "registeredBy")
+    private Set<Shipment> registeredShipments;
 
     public String getFirstName() {
         return firstName;
@@ -57,47 +59,58 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Long getLogisticCompanyId() {
-        return logisticCompanyId;
+    public LogisticCompany getLogisticCompany() {
+        return logisticCompany;
     }
 
-    public void setLogisticCompanyId(Long logisticCompanyId) {
-        this.logisticCompanyId = logisticCompanyId;
+    public void setLogisticCompany(LogisticCompany logisticCompany) {
+        this.logisticCompany = logisticCompany;
     }
 
-    public Long getOfficeBranchId() {
-        return officeBranchId;
+    public OfficeBranch getOfficeBranch() {
+        return officeBranch;
     }
 
-    public void setOfficeBranchId(Long officeBranchId) {
-        this.officeBranchId = officeBranchId;
+    public void setOfficeBranch(OfficeBranch officeBranch) {
+        this.officeBranch = officeBranch;
     }
 
-    public Integer getPosition() {
+    public PositionCatalog getPosition() {
         return position;
     }
 
-    public void setPosition(Integer position) {
+    public void setPosition(PositionCatalog position) {
+        this.position = position;
+    }
+
+    public Employee() {  }
+
+    public Employee(String username, String email, String password, Boolean enabled, String firstName, String lastName, LocalDate birthDate, LogisticCompany logisticCompany, OfficeBranch officeBranch, PositionCatalog position) {
+        super(username, email, password, enabled);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.logisticCompany = logisticCompany;
+        this.officeBranch = officeBranch;
         this.position = position;
     }
 
     @Override
     public String toString() {
-        return "Employees{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
-                ", logisticCompanyId=" + logisticCompanyId +
-                ", officeBranchId=" + officeBranchId +
+                ", logisticCompany=" + logisticCompany +
+                ", officeBranch=" + officeBranch +
                 ", position=" + position +
                 '}';
     }

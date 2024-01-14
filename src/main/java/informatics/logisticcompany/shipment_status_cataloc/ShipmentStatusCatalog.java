@@ -1,18 +1,26 @@
 package informatics.logisticcompany.shipment_status_cataloc;
+import informatics.logisticcompany.shipment_status.ShipmentStatus;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+
+import java.util.Set;
+
 @Entity
 @Table(name = "shipment_status_catalog")
 public class ShipmentStatusCatalog {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shipment_status_catalog_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "shipment_status_name")
     private String name;
+
+    @OneToMany(mappedBy = "shipmentStatus")
+    private Set<ShipmentStatus> shipmentStatuses;
 
     public Long getId() {
         return id;
@@ -30,6 +38,12 @@ public class ShipmentStatusCatalog {
         this.name = name;
     }
 
+    public ShipmentStatusCatalog() {  }
+
+    public ShipmentStatusCatalog(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "ShipmentStatusCatalog{" +
@@ -37,6 +51,4 @@ public class ShipmentStatusCatalog {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-// Getters, setters, and constructors
 }
