@@ -1,23 +1,32 @@
 package informatics.logisticcompany.logistic_companies;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/companies")
+@Controller
+@RequestMapping("/logistic-companies")
 public class LogisticCompanyController {
     private final LogisticCompanyService logisticCompanyService;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    public LogisticCompanyController(LogisticCompanyService logisticCompanyService) {
+    public LogisticCompanyController(LogisticCompanyService logisticCompanyService, ModelMapper modelMapper) {
         this.logisticCompanyService = logisticCompanyService;
+        this.modelMapper = modelMapper;
     }
 
-    @GetMapping
-    public List<LogisticCompany> getAllCompanies() {
-        return logisticCompanyService.getAllCompanies();
+    @GetMapping("/list")
+    public String getAllCompanies(Model model) {
+
+        List<LogisticCompanyDTO> logisticCompanyDTOList = logisticCompanyService.getAllCompanies();
+
+        model.addAttribute("companies", logisticCompanyDTOList);
+
+        return "list-logistic-companies";
     }
 
     @PostMapping
