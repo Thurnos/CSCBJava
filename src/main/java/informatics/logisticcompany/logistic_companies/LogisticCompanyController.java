@@ -26,11 +26,21 @@ public class LogisticCompanyController {
 
         model.addAttribute("companies", logisticCompanyDTOList);
 
-        return "list-logistic-companies";
+        return "logistic-companies/list-logistic-companies";
     }
 
-    @PostMapping
-    public LogisticCompany createCompany(@RequestBody LogisticCompany company) {
-        return logisticCompanyService.createCompany(company);
+    @GetMapping("/create")
+    public String createLogisticCompany(Model mode) {
+
+        LogisticCompany logisticCompany = new LogisticCompany();
+
+        mode.addAttribute("logisticCompany", logisticCompany);
+
+        return "/logistic-companies/create-logistic-companies";
     }
+
+//    @PostMapping("/create")
+//    public LogisticCompany createCompany(@RequestBody LogisticCompany company) {
+//        return logisticCompanyService.createCompany(company);
+//    }
 }
