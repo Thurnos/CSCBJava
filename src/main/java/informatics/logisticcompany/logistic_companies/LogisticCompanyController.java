@@ -30,13 +30,20 @@ public class LogisticCompanyController {
     }
 
     @GetMapping("/create")
-    public String createLogisticCompany(Model mode) {
+    public String showCreateForm(Model mode) {
 
         LogisticCompany logisticCompany = new LogisticCompany();
 
         mode.addAttribute("logisticCompany", logisticCompany);
 
         return "/logistic-companies/create-logistic-companies";
+    }
+
+    @PostMapping("/save")
+    public String saveLogisticCompany(@ModelAttribute("logisticCompany") LogisticCompany logisticCompany) {
+        logisticCompanyService.createCompany(logisticCompany);
+
+        return "redirect:/logistic-companies/list";
     }
 
 //    @PostMapping("/create")
