@@ -27,7 +27,8 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @ManyToMany
+    // TODO: FetchType.LAZY
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_has_roles",
             joinColumns = @JoinColumn(name = "users_user_id"),
@@ -72,6 +73,14 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public User() {  }

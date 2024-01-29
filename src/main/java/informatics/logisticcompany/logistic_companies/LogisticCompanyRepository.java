@@ -10,4 +10,6 @@ import java.util.List;
 public interface LogisticCompanyRepository extends JpaRepository<LogisticCompany, Long> {
     // additional custom queries can be added here
 
+    List<LogisticCompany> findAllByOrderByNameAsc();
+
 }

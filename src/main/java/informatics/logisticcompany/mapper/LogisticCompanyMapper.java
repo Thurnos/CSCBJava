@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class LogisticCompanyMapper {
 
     // TODO: Moje da se dobavi final
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public LogisticCompanyMapper(ModelMapper modelMapper) {

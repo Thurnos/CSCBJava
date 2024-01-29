@@ -25,7 +25,7 @@ public class LogisticCompanyService {
 
     public List<LogisticCompanyDTO> getAllCompanies() {
 
-        List<LogisticCompany> logisticCompanies =  logisticCompanyRepository.findAll();
+        List<LogisticCompany> logisticCompanies =  logisticCompanyRepository.findAllByOrderByNameAsc();
 
         return logisticCompanies.stream()
                 .map(logisticCompanyMapper::convertToDTO)
