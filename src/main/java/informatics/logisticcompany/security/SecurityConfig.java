@@ -36,7 +36,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(configurer ->
                         configurer
                                 .requestMatchers("/user/registration").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/**").permitAll()
+//                                .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/user/login")
@@ -45,7 +46,6 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .permitAll()
                 );
-
 
         return http.build();
     }

@@ -30,11 +30,11 @@ public class LogisticCompanyController {
     }
 
     @GetMapping("/create")
-    public String showCreateForm(Model mode) {
+    public String showCreateForm(Model model) {
 
         LogisticCompany logisticCompany = new LogisticCompany();
 
-        mode.addAttribute("logisticCompany", logisticCompany);
+        model.addAttribute("logisticCompany", logisticCompany);
 
         return "/logistic-companies/create-logistic-companies";
     }

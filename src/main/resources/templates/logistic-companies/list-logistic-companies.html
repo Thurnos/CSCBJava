@@ -19,6 +19,7 @@
                 <th>Company Name</th>
                 <th>Address</th>
                 <th>Foundation Date</th>
+                <th>Action</th>
             </tr>
             </thead>
 
@@ -28,6 +29,11 @@
                 <td th:text="${logisticCompany.getName()}" />
                 <td th:text="${logisticCompany.getAddress()}" />
                 <td th:text="${logisticCompany.getFoundationDate()}" />
+                <td>
+                    <a th:href="@{/logistic-companies/update(logisticCompanyId=${})}">
+
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
