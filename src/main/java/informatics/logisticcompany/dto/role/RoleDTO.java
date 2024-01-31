@@ -30,9 +30,6 @@ public class RoleDTO {
 
     @Override
     public String toString() {
-        return "RoleDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

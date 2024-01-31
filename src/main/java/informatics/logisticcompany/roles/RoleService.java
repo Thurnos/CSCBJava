@@ -46,4 +46,8 @@ public class RoleService {
     public Role updateRoleDTO(@ModelAttribute RoleDTO roleDTO) {
         return roleRepository.save(roleMapper.convertToEntity(roleDTO));
     }
+
+    public List<RoleDTO> findAllRolesWithRoleDTO() {
+        return roleRepository.findAllRoles();
+    }
 }

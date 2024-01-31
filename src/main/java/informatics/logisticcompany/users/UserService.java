@@ -1,6 +1,9 @@
 package informatics.logisticcompany.users;
 
+import informatics.logisticcompany.dto.role.RoleDTO;
+import informatics.logisticcompany.dto.user.UserBasicInfo;
 import informatics.logisticcompany.dto.user.UserDTO;
+import informatics.logisticcompany.dto.user.UserRolesDTO;
 import informatics.logisticcompany.exception.UserAlreadyExistException;
 import informatics.logisticcompany.mapper.UserMapper;
 import informatics.logisticcompany.roles.Role;
@@ -13,9 +16,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,11 +29,49 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
+
     @Autowired
     public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public UserBasicInfo findUserByIdWithBasicInfo(Long userId) {
+        return userRepository.findUserByIdWithBasicInfo(userId);
+    }
+
+    public List<RoleDTO> findRolesByUserId(Long id) {
+        return userRepository.findRolesByUserId(id);
+    }
+
+    public UserRolesDTO findUserWithBasicInfo(Long id) {
+        return userRepository.findUserWithBasicInfo(id);
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+
+    // -----------------------------------
+
+    public List<UserRolesDTO> findALlUsersWithRoles() {
+        List<UserRolesDTO> users = userRepository.findAllUsersWithBasicInfo();
+
+        users.forEach(user -> {
+            List<RoleDTO> roles = userRepository.findRolesByUserId(user.getId());
+            user.setRoles(roles);
+        });
+
+        return users;
+    }
+
+    public UserRolesDTO findUserWithRoles(Long id) {
+        UserRolesDTO user = userRepository.findUserWithBasicInfo(id);
+        List<RoleDTO> roles = userRepository.findRolesByUserId(id);
+        user.setRoles(roles);
+        return user;
     }
 
     public List<User> getAllUsers() {
