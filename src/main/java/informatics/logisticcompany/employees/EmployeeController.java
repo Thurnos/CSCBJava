@@ -1,8 +1,12 @@
 package informatics.logisticcompany.employees;
 
+import informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -11,8 +15,8 @@ import java.util.List;
  * This class provides endpoints for CRUD operations on employees,
  * leveraging the EmployeeService to interact with the data layer.
  */
-@RestController
-@RequestMapping("/api/employees")
+@Controller
+@RequestMapping("/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -36,16 +40,45 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("/list")
+    public String getAllEmployees(Model model) {
+        List<EmployeeBasicInfoDTO> employees = employeeService.getAllEmployeesWithBasicInfo();
 
-    /**
-     * Creates a new employee and saves it to the database.
-     * @param employee The Employee object to be created, parsed from the request body.
-     * @return The created Employee object, including its generated ID and any defaults or changes made during persistence.
-     */
-    @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.createEmployee(employee);
+        model.addAttribute("employees", employees);
+
+        return "/employee/list-employees";
     }
 
-    // Add other controller methods as needed
+    @GetMapping("/edit/{id}")
+    public String editEmployee(@PathVariable("id") Long id, Model model) {
+        EmployeeBasicInfoDTO employee = employeeService.findEmployeeWithBasicInfoById(id);
+        model.addAttribute("employee", employee);
+        return "/employee/edit-employee";
+    }
+
+    @PostMapping("/update")
+    public String saveEmployee(Employee employee) {
+        employeeService.saveEmployee(employee);
+        return "redirect:/employees/list";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable("id") Long id) {
+        employeeService.deleteEmployee(id);
+        return "redirect:/employees/list";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute("employee", employee);
+        return "/employee/create-employee";
+    }
+
+    @PostMapping("/create")
+    public String createEmployee(@ModelAttribute("employee") Employee employee) {
+        employeeService.saveEmployee(employee);
+        return "redirect:/employees/list";
+    }
+
 }

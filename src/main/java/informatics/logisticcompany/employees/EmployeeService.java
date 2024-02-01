@@ -1,5 +1,6 @@
 package informatics.logisticcompany.employees;
 
+import informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,19 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    // Add other service methods as needed
+    public List<EmployeeBasicInfoDTO> getAllEmployeesWithBasicInfo() {
+        return employeeRepository.findAllEmployeesWithBasicInfo();
+    }
+
+    public EmployeeBasicInfoDTO findEmployeeWithBasicInfoById(Long id) {
+        return employeeRepository.findEmployeeWithBasicInfoById(id);
+    }
+
+    public void saveEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
+    }
 }

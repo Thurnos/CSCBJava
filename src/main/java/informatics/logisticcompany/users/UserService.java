@@ -72,9 +72,6 @@ public class UserService implements UserDetailsService {
     }
 
 
-    // -----------------------------------
-
-
     /**
      * Retrieves all users with basic information and their associated roles from the UserRepository.
      *
@@ -165,7 +162,7 @@ public class UserService implements UserDetailsService {
                     userDto.getEmail());
         }
 
-// TODO: Add default role
+        // TODO: Add default role
         User user = userMapper.convertToEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(user);
