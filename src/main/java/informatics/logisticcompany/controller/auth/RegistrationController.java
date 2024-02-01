@@ -19,11 +19,24 @@ public class RegistrationController {
 
     private final UserService userService;
 
+
+    /**
+     * Constructs a RegistrationController with a UserService.
+     *
+     * @param userService The service for user-related operations, injected by Spring.
+     */
     @Autowired
     public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
+
+    /**
+     * Displays the registration form to the user.
+     *
+     * @param model The model object to pass data to the view.
+     * @return The path to the registration view.
+     */
     @GetMapping("/user/registration")
     public String showRegistrationForm(Model model) {
         UserDTO userDto = new UserDTO();
@@ -31,6 +44,15 @@ public class RegistrationController {
         return "/auth/register";
     }
 
+
+    /**
+     * Processes the user registration form submission.
+     *
+     * @param userDto The user data transfer object containing the submitted data.
+     * @param request The HttpServletRequest object.
+     * @param errors Validation errors that may have occurred during form submission.
+     * @return The path to the login view if registration is successful; otherwise, returns to the registration form view.
+     */
     @PostMapping("/user/registration")
     public String registerUser(@ModelAttribute("user") @Valid UserDTO userDto,
                                      HttpServletRequest request, Errors errors) {

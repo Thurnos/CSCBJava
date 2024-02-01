@@ -5,19 +5,45 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+/**
+ * Service layer for handling business logic related to Employee entities.
+ * This class provides methods to interact with the EmployeeRepository for CRUD operations
+ * and any additional business processes related to employees.
+ */
 @Service
 public class EmployeeService {
+
+
     private final EmployeeRepository employeeRepository;
 
+
+    /**
+     * Constructs an EmployeeService with an injected EmployeeRepository.
+     * @param employeesRepository The repository providing data access operations for employees.
+     */
     @Autowired
     public EmployeeService(EmployeeRepository employeesRepository) {
         this.employeeRepository = employeesRepository;
     }
 
+
+    /**
+     * Retrieves all employees from the database.
+     * @return A list of all Employee entities.
+     */
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
+    /**
+     * Saves a new employee to the database.
+     * This method handles the creation of an employee, including persisting the employee
+     * entity and any associated operations that should occur upon a new employee's creation.
+     *
+     * @param employee The Employee entity to be saved.
+     * @return The saved Employee entity, now with a generated ID.
+     */
     public Employee createEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
