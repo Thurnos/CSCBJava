@@ -1,6 +1,9 @@
 package informatics.logisticcompany.client;
 
+import ch.qos.logback.core.model.Model;
+import informatics.logisticcompany.dto.client.ClientBasicInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,5 +52,20 @@ public class ClientController {
         return clientService.createClient(client);
     }
 
-    // Add other controller methods as needed
+
+
+
+    @PostMapping("/update")
+    public String saveClient(Client client) {
+        clientService.createClient(client);
+        return "redirect:/clients/list";
+    }
+
+
+    @DeleteMapping("/delete")
+    public String deleteClient(@RequestParam("id") Long id) {
+        clientService.deleteClientById(id);
+        return "deleted";
+    }
+
 }

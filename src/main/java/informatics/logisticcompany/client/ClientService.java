@@ -1,9 +1,12 @@
 package informatics.logisticcompany.client;
 
+import informatics.logisticcompany.dto.client.ClientBasicInfoDTO;
+import informatics.logisticcompany.employees.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -40,5 +43,22 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    // Add other service methods as needed
+    public boolean deleteClientById(Long clientId) {
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+
+        if (clientOptional.isPresent()) {
+            clientRepository.deleteById(clientId);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void saveClient(Client client) {
+        clientRepository.save(client);
+    }
+
+
+
+
 }

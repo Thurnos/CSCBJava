@@ -2,8 +2,11 @@ package informatics.logisticcompany.logistic_companies;
 
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
 import informatics.logisticcompany.mapper.LogisticCompanyMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,4 +66,16 @@ public class LogisticCompanyService {
     public LogisticCompany createCompany(LogisticCompany company) {
         return logisticCompanyRepository.save(company);
     }
+
+
+    public void deleteCompany(Long companyId) {
+        logisticCompanyRepository.deleteById(companyId);
+    }
+
+    public LogisticCompany saveCompany(LogisticCompany company) {
+        return logisticCompanyRepository.save(company);
+    }
+
+
+
 }
