@@ -28,24 +28,45 @@ import java.util.stream.Collectors;
  * loading user details for security, and user registration processes.
  */
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService{
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
 
+
+    // UserService Extends UserDetailsService
+    // The service class has a method to find the user by email
+    // This is used by Spring Security to find a user during the login process
+
+
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findUserByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username or password.");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
 
     /**
      * Constructs UserService with UserRepository, UserMapper, and PasswordEncoder.
      *
      * @param userRepository Repository for user data access.
      * @param userMapper Mapper for converting between User entities and DTOs.
-     * @param passwordEncoder Encoder for hashing passwords.
      */
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -120,61 +141,4 @@ public class UserService implements UserDetailsService {
     }
 
 
-    /**
-     * Loads a user by their email address and constructs a UserDetails object for Spring Security.
-     *
-     * @param email The email address of the user to be loaded.
-     * @return UserDetails object representing the user.
-     * @throws UsernameNotFoundException If the user is not found.
-     */
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        User user = userRepository.findUserByEmail(email);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid email or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-    }
-
-    /**
-     * Maps a collection of roles to Spring Security GrantedAuthority objects.
-     *
-     * @param roles The collection of roles to be mapped.
-     * @return A collection of GrantedAuthority objects representing the roles.
-     */
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-    }
-
-    /**
-     * Registers a new user with the given user DTO details. Throws UserAlreadyExistException
-     * if the email already exists.
-     *
-     * @param userDto The user DTO containing new user details.
-     * @return The registered User entity.
-     * @throws UserAlreadyExistException If the email already exists.
-     */
-    public User registerNewUser(UserDTO userDto) throws UserAlreadyExistException {
-        if (emailExists(userDto.getEmail())) {
-            throw new UserAlreadyExistException("The email address is already in use: " +
-                    userDto.getEmail());
-        }
-
-        // TODO: Add default role
-        User user = userMapper.convertToEntity(userDto);
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        return userRepository.save(user);
-    }
-
-    /**
-     * Checks if an email address already exists in the UserRepository.
-     *
-     * @param email The email address to be checked.
-     * @return True if the email address exists, false otherwise.
-     */
-    private boolean emailExists(String email) {
-        return userRepository.findUserByEmail(email) != null;
-    }
 }

@@ -1,7 +1,6 @@
 package informatics.logisticcompany.client;
 
 import ch.qos.logback.core.model.Model;
-import informatics.logisticcompany.dto.client.ClientBasicInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

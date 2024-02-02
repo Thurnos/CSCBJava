@@ -35,4 +35,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT new informatics.logisticcompany.dto.user.UserRolesDTO(user.id, user.username, user.email) FROM User user WHERE user.id = :userId")
     UserRolesDTO findUserWithBasicInfo(Long userId);
 
+    @Query("SELECT new informatics.logisticcompany.dto.user.UserRolesDTO(u.id, u.username, u.email) FROM User u WHERE u.username =:username")
+    UserRolesDTO findUserByUsernameWithUserRolesDTO(String username);
+
+    @Query("SELECT new informatics.logisticcompany.dto.role.RoleDTO(role.id, role.name) FROM User user JOIN user.roles role WHERE user.username = :username")
+    List<RoleDTO> findRolesByUsername(String username);
+
+    @Query("SELECT new informatics.logisticcompany.dto.user.UserBasicInfo(u.id, u.username, u.email) FROM User u WHERE u.username =:username")
+    UserBasicInfo findUserWithBasicInfo(String username);
+
 }

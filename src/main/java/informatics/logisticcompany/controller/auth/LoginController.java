@@ -13,9 +13,12 @@ public class LoginController {
      *
      * @return The path to the login view, allowing the user to enter their credentials.
      */
-    @GetMapping("/user/login")
+    @GetMapping("/auth/login")
     public String showLoginForm() {
         return "/auth/login";
     }
+
+    @GetMapping("/auth/access-denied")
+    public String showAccessDenied() { return "/auth/access-denied"; }
 
 }

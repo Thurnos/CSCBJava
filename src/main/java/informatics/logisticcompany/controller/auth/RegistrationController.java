@@ -43,26 +43,4 @@ public class RegistrationController {
         model.addAttribute("user", userDto);
         return "/auth/register";
     }
-
-
-    /**
-     * Processes the user registration form submission.
-     *
-     * @param userDto The user data transfer object containing the submitted data.
-     * @param request The HttpServletRequest object.
-     * @param errors Validation errors that may have occurred during form submission.
-     * @return The path to the login view if registration is successful; otherwise, returns to the registration form view.
-     */
-    @PostMapping("/user/registration")
-    public String registerUser(@ModelAttribute("user") @Valid UserDTO userDto,
-                                     HttpServletRequest request, Errors errors) {
-
-        try {
-            User user = userService.registerNewUser(userDto);
-        } catch (UserAlreadyExistException e) {
-
-            throw new RuntimeException(e);
-        }
-        return "/auth/login";
-    }
 }

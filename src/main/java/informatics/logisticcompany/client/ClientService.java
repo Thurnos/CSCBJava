@@ -1,6 +1,5 @@
 package informatics.logisticcompany.client;
 
-import informatics.logisticcompany.dto.client.ClientBasicInfoDTO;
 import informatics.logisticcompany.employees.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package informatics.logisticcompany.mapper;
 
 import informatics.logisticcompany.dto.user.UserDTO;
+import informatics.logisticcompany.dto.user.UserRolesDTO;
 import informatics.logisticcompany.users.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class UserMapper {
      */
     public User convertToEntity(UserDTO userDTO) {
         User user = modelMapper.map(userDTO, User.class);
+        return user;
+    }
+
+    public User convertUserRolesToEntity(UserRolesDTO userRolesDTO) {
+        User user = modelMapper.map(userRolesDTO, User.class);
         return user;
     }
 }

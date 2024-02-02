@@ -1,9 +1,13 @@
 package informatics.logisticcompany;
 
-import informatics.logisticcompany.logistic_companies.LogisticCompanyService;
+import informatics.logisticcompany.users.User;
+import informatics.logisticcompany.users.UserRepository;
+import informatics.logisticcompany.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class LogisticCompanyApplication {
@@ -12,19 +16,18 @@ public class LogisticCompanyApplication {
         SpringApplication.run(LogisticCompanyApplication.class, args);
     }
 //
-    @Autowired
-    LogisticCompanyService logisticCompanyService;
+//    @Autowired
+//    UserRepository userRepository;
+//
+//    @Bean
+//    public CommandLineRunner commandLineRunner() {
+//
+//        return args -> {
+//
+//            userRepository.save(
+//                    new User("alo", "alo@example.com", "alo", false)
+//            );
+//        };
+//    }
 
-    /*
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-
-        return args -> {
-
-          logisticCompanyService.deleteCompany(1l);
-
-
-        };
-    }
-   */
 }

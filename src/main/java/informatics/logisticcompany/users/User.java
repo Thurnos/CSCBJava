@@ -27,7 +27,6 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    // TODO: FetchType.LAZY
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_has_roles",

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -22,12 +22,21 @@
                 </li>
             </ul>
             <div class="text-end">
-                <a th:href="@{/user/login}" class="btn btn-outline-light me-2">Login</a>
-                <a th:href="@{/user/registration}" class="btn btn-warning">Register</a>
+                <a th:href="@{/auth/login}" class="btn btn-outline-light me-2">Login</a>
+                <a th:href="@{/auth/registration}" class="btn btn-warning">Register</a>
+                <form accept-charset="#" th:action="@{/logout}" method="POST">
+                    <input class="btn btn-info"  type="submit" value="Logout">
+                </form>
             </div>
         </div>
     </div>
 </header>
+
+<p>
+    User: <span sec:authentication="principal.username"></span>
+    <br><br>
+    Role(s): <span sec:authentication="principal.authorities"></span>
+</p>
 
 </body>
 </html>
