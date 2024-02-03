@@ -1,10 +1,18 @@
 package informatics.logisticcompany.users;
 
+import informatics.logisticcompany.client.Client;
+import informatics.logisticcompany.client.ClientRepository;
+import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
 import informatics.logisticcompany.dto.role.RoleDTO;
 import informatics.logisticcompany.dto.user.UserBasicInfo;
 import informatics.logisticcompany.dto.user.UserDTO;
+import informatics.logisticcompany.dto.user.UserRegisterDTO;
 import informatics.logisticcompany.dto.user.UserRolesDTO;
 import informatics.logisticcompany.exception.UserAlreadyExistException;
+import informatics.logisticcompany.logistic_companies.LogisticCompany;
+import informatics.logisticcompany.logistic_companies.LogisticCompanyRepository;
+import informatics.logisticcompany.mapper.LogisticCompanyMapper;
+import informatics.logisticcompany.mapper.RoleMapper;
 import informatics.logisticcompany.mapper.UserMapper;
 import informatics.logisticcompany.roles.Role;
 import informatics.logisticcompany.roles.RoleRepository;
@@ -14,11 +22,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,6 +41,31 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService{
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RoleRepository roleRepository;
+    private final ClientRepository clientRepository;
+    private final LogisticCompanyRepository logisticCompanyRepository;
+    private final LogisticCompanyMapper logisticCompanyMapper;
+    private final RoleMapper roleMapper;
+
+    /**
+     * Constructs UserService with UserRepository, UserMapper, and PasswordEncoder.
+     *
+     * @param userRepository Repository for user data access.
+     * @param userMapper Mapper for converting between User entities and DTOs.
+     */
+
+    @Autowired
+    public UserService(UserRepository userRepository, UserMapper userMapper, BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository, ClientRepository clientRepository, LogisticCompanyRepository logisticCompanyRepository, LogisticCompanyMapper logisticCompanyMapper, RoleMapper roleMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.roleRepository = roleRepository;
+        this.clientRepository = clientRepository;
+        this.logisticCompanyRepository = logisticCompanyRepository;
+        this.logisticCompanyMapper = logisticCompanyMapper;
+        this.roleMapper = roleMapper;
+    }
 
 
     // UserService Extends UserDetailsService
@@ -55,18 +90,6 @@ public class UserService implements UserDetailsService{
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-    }
-
-    /**
-     * Constructs UserService with UserRepository, UserMapper, and PasswordEncoder.
-     *
-     * @param userRepository Repository for user data access.
-     * @param userMapper Mapper for converting between User entities and DTOs.
-     */
-    @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
 
@@ -140,5 +163,36 @@ public class UserService implements UserDetailsService{
         return userRepository.findUserByUsername(username);
     }
 
+    public UserDTO findUserDTOByUsername(String username) {
+        return userRepository.findUserDTOByUsername(username);
+    }
+
+    public void registerUser(UserRegisterDTO userRegisterDTO) {
+
+        Client client = new Client();
+
+        client.setUsername(userRegisterDTO.getUsername());
+        client.setFirstname(userRegisterDTO.getFirstName());
+        client.setLastName(userRegisterDTO.getLastName());
+        client.setEmail(userRegisterDTO.getEmail());
+        client.setPassword(bCryptPasswordEncoder.encode(userRegisterDTO.getPassword()));
+        client.setPhoneNumber(userRegisterDTO.getPhoneNumber());
+        client.setAddress(userRegisterDTO.getAddress());
+        client.setEnabled(true);
+
+        RoleDTO roleDTO = roleRepository.findRoleByName("CLIENT");
+        Role role = roleMapper.convertToEntity(roleDTO);
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
+        LogisticCompanyDTO logisticCompanyDTO = logisticCompanyRepository.findLogisticCompanyById(1l);
+        LogisticCompany logisticCompany = logisticCompanyMapper.convertToEntity(logisticCompanyDTO);
+
+        client.setRoles(roles);
+        client.setLogisticCompany(logisticCompany);
+
+        clientRepository.save(client);
+    }
 
 }

@@ -15,5 +15,8 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     @Query("SELECT new informatics.logisticcompany.dto.role.RoleDTO(role.id, role.name) FROM Role role")
     List<RoleDTO> findAllRoles();
+
+    @Query("SELECT new informatics.logisticcompany.dto.role.RoleDTO(r.id, r.name) FROM Role r WHERE r.name =:name")
+    RoleDTO findRoleByName(String name);
 }
 

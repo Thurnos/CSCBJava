@@ -5,38 +5,25 @@ import jakarta.validation.constraints.NotNull;
 
 public class UserDTO {
 
-    @NotNull(message = "Username cannot be null!")
-    @NotEmpty(message = "Username cannot be empty!")
+    private Long id;
     private String username;
-
-    @NotNull(message = "First name cannot be null!")
-    @NotEmpty(message = "First name cannot be empty!")
-    private String firstName;
-
-    @NotNull(message = "Last name cannot be null!")
-    @NotEmpty(message = "Last name cannot be empty!")
-    private String lastName;
-
-    @NotNull(message = "Password cannot be null!")
-    @NotEmpty(message = "Password cannot be empty!")
-    private String password;
-
-    private String matchingPassword;
-
-    @NotNull(message = "Email cannot be null!")
-    @NotEmpty(message = "Email cannot be empty!")
     private String email;
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String firstName, String lastName, String password, String matchingPassword, String email) {
+    public UserDTO(Long id, String username, String email) {
+        this.id = id;
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.matchingPassword = matchingPassword;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -45,38 +32,6 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
     }
 
     public String getEmail() {
@@ -89,12 +44,9 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserDto{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", matchingPassword='" + matchingPassword + '\'' +
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

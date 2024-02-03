@@ -1,6 +1,7 @@
 package informatics.logisticcompany.mapper;
 
 import informatics.logisticcompany.dto.user.UserDTO;
+import informatics.logisticcompany.dto.user.UserRegisterDTO;
 import informatics.logisticcompany.dto.user.UserRolesDTO;
 import informatics.logisticcompany.users.User;
 import org.modelmapper.ModelMapper;
@@ -36,20 +37,7 @@ public class UserMapper {
         return userDto;
     }
 
-
-    /**
-     * Converts a UserDTO to a User entity.
-     *
-     * @param userDTO The UserDTO to convert.
-     * @return A User entity populated with the DTO's data.
-     */
-    public User convertToEntity(UserDTO userDTO) {
-        User user = modelMapper.map(userDTO, User.class);
-        return user;
-    }
-
-    public User convertUserRolesToEntity(UserRolesDTO userRolesDTO) {
-        User user = modelMapper.map(userRolesDTO, User.class);
-        return user;
+    public User convertUserRegister(UserRegisterDTO userRegisterDTO) {
+        return modelMapper.map(userRegisterDTO, User.class);
     }
 }

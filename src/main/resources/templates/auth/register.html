@@ -23,7 +23,7 @@
             </ul>
             <div class="text-end">
                 <a th:href="@{/auth/login}" class="btn btn-outline-light me-2">Login</a>
-                <a th:href="@{/auth/registration}" class="btn btn-warning">Register</a>
+                <a th:href="@{/auth/register}" class="btn btn-warning">Register</a>
             </div>
         </div>
     </div>
@@ -31,7 +31,10 @@
 
 <div class="container mt-5" style="max-width:600px">
     <div class="row border rounded-top">
-        <form action="/" th:action="@{/user/registration}" th:object="${user}" method="POST">
+        <form action="/" th:action="@{/auth/register}" th:object="${userRegister}" method="POST">
+            <div th:if="${registrationError}" class="alert alert-danger mb-3 mt-3" role="alert">
+                Username already exists!
+            </div>
             <div class="mb-3 mt-3">
                 <label>Username</label>
                 <input type="text" th:field="*{username}" class="form-control" required>
@@ -46,7 +49,15 @@
             </div>
             <div class="mb-3 mt-3">
                 <label>Password</label>
-                <input type="text" th:field="*{password}" class="form-control" required>
+                <input type="password" th:field="*{password}" class="form-control" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Address</label>
+                <input type="text" th:field="*{address}" class="form-control" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Phone number</label>
+                <input type="text" th:field="*{phoneNumber}" class="form-control" required>
             </div>
             <div class="mb-3 mt-3">
                 <label>Email</label>

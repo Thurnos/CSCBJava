@@ -2,6 +2,7 @@ package informatics.logisticcompany.logistic_companies;
 
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface LogisticCompanyRepository extends JpaRepository<LogisticCompany
      */
     List<LogisticCompany> findAllByOrderByNameAsc();
 
+    @Query("SELECT new informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO(" +
+            "lc.id, lc.name, lc.address, lc.foundationDate) FROM LogisticCompany lc WHERE lc.id = :id")
+    LogisticCompanyDTO findLogisticCompanyById(Long id);
 }

@@ -59,6 +59,7 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/users/**").hasAuthority("ADMIN")
+                        .requestMatchers("/auth/register/**").permitAll()
                         .anyRequest().authenticated()
         )
                 .formLogin(form ->

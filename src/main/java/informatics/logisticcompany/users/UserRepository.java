@@ -4,15 +4,12 @@ import informatics.logisticcompany.dto.role.RoleDTO;
 import informatics.logisticcompany.dto.user.UserBasicInfo;
 import informatics.logisticcompany.dto.user.UserDTO;
 import informatics.logisticcompany.dto.user.UserRolesDTO;
-import informatics.logisticcompany.roles.Role;
-import informatics.logisticcompany.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -43,5 +40,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT new informatics.logisticcompany.dto.user.UserBasicInfo(u.id, u.username, u.email) FROM User u WHERE u.username =:username")
     UserBasicInfo findUserWithBasicInfo(String username);
+
+    @Query("SELECT new informatics.logisticcompany.dto.user.UserDTO(u.id, u.username, u.email) FROM User u WHERE u.username = :username")
+    UserDTO findUserDTOByUsername(String username);
 
 }
