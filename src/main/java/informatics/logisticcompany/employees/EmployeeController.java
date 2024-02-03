@@ -6,10 +6,14 @@ import informatics.logisticcompany.dto.employee.UpdateEmployeeDTO;
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
 import informatics.logisticcompany.dto.office_branch.OfficeBranchDTO;
 import informatics.logisticcompany.dto.position.PositionDTO;
+import informatics.logisticcompany.dto.role.RoleDTO;
 import informatics.logisticcompany.logistic_companies.LogisticCompanyService;
 import informatics.logisticcompany.mapper.EmployeeMapper;
+import informatics.logisticcompany.mapper.RoleMapper;
 import informatics.logisticcompany.office_branches.OfficeBranchService;
 import informatics.logisticcompany.possitions_catalog.PositionCatalogService;
+import informatics.logisticcompany.roles.Role;
+import informatics.logisticcompany.roles.RoleService;
 import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -33,6 +39,8 @@ public class EmployeeController {
     private final OfficeBranchService officeBranchService;
     private final PositionCatalogService positionCatalogService;
     private final EmployeeMapper employeeMapper;
+    private final RoleService roleService;
+    private final RoleMapper roleMapper;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -41,15 +49,16 @@ public class EmployeeController {
      * @param employeeService The service handling business logic for employee operations.
      */
     @Autowired
-    public EmployeeController(EmployeeService employeeService, LogisticCompanyService logisticCompanyService, OfficeBranchService officeBranchService, PositionCatalogService positionCatalogService, EmployeeMapper employeeMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public EmployeeController(EmployeeService employeeService, LogisticCompanyService logisticCompanyService, OfficeBranchService officeBranchService, PositionCatalogService positionCatalogService, EmployeeMapper employeeMapper, RoleService roleService, RoleMapper roleMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.employeeService = employeeService;
         this.logisticCompanyService = logisticCompanyService;
         this.officeBranchService = officeBranchService;
         this.positionCatalogService = positionCatalogService;
         this.employeeMapper = employeeMapper;
+        this.roleService = roleService;
+        this.roleMapper = roleMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
 
     /**
      * Retrieves a list of all employees.
@@ -124,8 +133,13 @@ public class EmployeeController {
     @PostMapping("/create")
     public String createEmployee(@ModelAttribute("employee") Employee employee) {
 
+        Set<Role> roleSet = new HashSet<>();
         String password = bCryptPasswordEncoder.encode(employee.getPassword());
+        RoleDTO roleDTO = roleService.findRoleByNameWithRoleDTO("EMPLOYEE");
+        roleSet.add(roleMapper.convertToEntity(roleDTO));
+
         employee.setPassword(password);
+        employee.setRoles(roleSet);
 
         employeeService.saveEmployee(employee);
         return "redirect:/employees/list";

@@ -92,6 +92,9 @@ public class RoleService {
         return roleRepository.save(roleMapper.convertToEntity(roleDTO));
     }
 
+    public RoleDTO findRoleByNameWithRoleDTO(String name) {
+        return roleRepository.findRoleByName(name);
+    }
     public List<RoleDTO> findAllRolesWithRoleDTO() {
         return roleRepository.findAllRoles();
     }
