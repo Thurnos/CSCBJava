@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>List Clients - Logistic Company</title>
@@ -35,20 +35,20 @@
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Birth Date</th>
             <th>Action</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="client : ${clients}">
-            <td th:text="${client.getFirstName()}" />
+        <tr th:each="client : ${clientList}">
             <td th:text="${client.getLastName()}" />
-            <td th:text="${client.getBirthDate()}" />
+            <td th:text="${client.getLastName()}" />
             <td>
-                <a th:href="@{/clients/edit/{id}(id=${client.id})}">Edit</a>
+                <a class="btn btn-primary" th:href="@{/clients/edit/{id}(id=${client.id})}">Edit</a>
+            </td>
+            <td>
                 <form th:action="@{/clients/delete/{id}(id=${client.id})}" method="POST">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
                 </form>
             </td>
         </tr>
