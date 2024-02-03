@@ -1,8 +1,8 @@
 package informatics.logisticcompany.client;
 
-import ch.qos.logback.core.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.List;
  * This class provides REST endpoints for managing clients within the system,
  * including operations for retrieving all clients and adding new clients.
  */
-@RestController
-@RequestMapping("/api/clients")
+@Controller
+@RequestMapping("/clients")
 public class ClientController {
     private final ClientService clientService;
 
@@ -34,9 +34,11 @@ public class ClientController {
      *
      * @return A list of all clients.
      */
-    @GetMapping
-    public List<Client> getAllClients() {
-        return clientService.getAllClients();
+    @GetMapping("/list")
+    public String getAllClients(Model model) {
+        List<Client> clients = clientService.getAllClients() ;
+        model.addAttribute("client-list", clients);
+        return "/clients/list-clients";
     }
 
 
@@ -52,6 +54,13 @@ public class ClientController {
     }
 
 
+
+
+    @PostMapping("/clients/create")
+    public String createAllClient(Client client) {
+        clientService.createClient(client);
+        return "redirect:/clients/list"; // Redirect to the client list page after creating a client
+    }
 
 
     @PostMapping("/update")
