@@ -52,17 +52,19 @@ public class OfficeBranchService {
     }
 
     public OfficeBranch updateOfficeBranch(Long id, OfficeBranch updatedOfficeBranch) {
-        Optional<OfficeBranch> existingOfficeBranch = officeBranchRepository.findById(id);
-
+        Optional<OfficeBranch> existingOfficeBranch = officeBranchRepository.findById(id);  // Retrieve the existing OfficeBranch by its ID
+        // check if the existing OfficeBranch is present in the repository
         if (existingOfficeBranch.isPresent()) {
-            OfficeBranch officeBranch = existingOfficeBranch.get();
+            OfficeBranch officeBranch = existingOfficeBranch.get();  // If present, get the OfficeBranch object
+
+            // update the properties of the existing OfficeBranch with the values from the updatedOfficeBranch
             officeBranch.setName(updatedOfficeBranch.getName());
             officeBranch.setAddress(updatedOfficeBranch.getAddress());
             officeBranch.setLogisticCompany(updatedOfficeBranch.getLogisticCompany());
-
+            // save the updated OfficeBranch back to the repository
             return officeBranchRepository.save(officeBranch);
         }
-
+        // If the OfficeBranch with the given ID is not found, return null
         return null;
     }
 
