@@ -27,31 +27,55 @@
 
 <body>
 
-<div class="container mt-5" style="max-width:600px">
+<div class="container mt-5" style="max-width: 600px">
     <div class="row border rounded-top">
-        <form action="#" th:action="@{/employees/create}" th:object="${employee}" method="POST">
-            <div class="mb-3 mt-3">
-                <label>First Name</label>
-                <input type="text" th:field="*{firstName}" class="form-control" required>
+        <form action="#" th:action="@{/employees/create}" method="POST">
+            <div class="form-group mb-3 mt-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
-            <div class="mb-3 mt-3">
-                <label>Last Name</label>
-                <input type="text" th:field="*{lastName}" class="form-control" required>
+            <div class="form-group mb-3">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" name="email" required>
             </div>
-            <div class="mb-3 mt-3">
-                <label>Birth Date</label>
-                <input type="text" th:field="*{lastName}" class="form-control" required>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
             </div>
-            <div class="mb-3 mt-3">
-                <label>Logistic Company</label>
-<!--                TODO LIST OF COMPANIES-->
+            <div class="form-group mb-3">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
             </div>
-
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary w-100">Create</button>
+            <div class="form-group mb-3">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
             </div>
+            <div class="form-group mb-3">
+                <label for="birthDate">Birth Date</label>
+                <input type="date" class="form-control" id="birthDate" name="birthDate" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="logisticCompany">Logistic Company</label>
+                <select class="form-control" id="logisticCompany" name="logisticCompany">
+                    <option th:each="company : ${logisticCompanies}" th:value="${company.id}" th:text="${company.name}"></option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="officeBranch">Office Branch</label>
+                <select class="form-control" id="officeBranch" name="officeBranch">
+                    <option th:each="branch : ${officeBranches}" th:value="${branch.id}" th:text="${branch.name}"></option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="position">Position</label>
+                <select class="form-control" id="position" name="position">
+                    <option th:each="position : ${positionCatalog}" th:value="${position.id}" th:text="${position.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Create</button>
         </form>
-        <a th:href="@{/logistic-companies/list}">Back to Logistic Companies List</a>
+        <a class="mb-3" th:href="@{/employees/list}">Back to Employee List</a>
+
     </div>
 </div>
 

@@ -1,5 +1,6 @@
 package informatics.logisticcompany.possitions_catalog;
 
+import informatics.logisticcompany.dto.position.PositionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,8 @@ public class PositionCatalogService {
      */
     public PositionCatalog createPosition(PositionCatalog position) {
         return positionCatalogRepository.save(position);
+    }
+    public List<PositionDTO> getAllWithPositionDTO() {
+        return positionCatalogRepository.findAllWithPositionDTO();
     }
 }

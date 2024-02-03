@@ -8,7 +8,6 @@ import informatics.logisticcompany.dto.user.UserBasicInfo;
 import informatics.logisticcompany.dto.user.UserDTO;
 import informatics.logisticcompany.dto.user.UserRegisterDTO;
 import informatics.logisticcompany.dto.user.UserRolesDTO;
-import informatics.logisticcompany.exception.UserAlreadyExistException;
 import informatics.logisticcompany.logistic_companies.LogisticCompany;
 import informatics.logisticcompany.logistic_companies.LogisticCompanyRepository;
 import informatics.logisticcompany.mapper.LogisticCompanyMapper;
@@ -23,9 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -186,7 +183,7 @@ public class UserService implements UserDetailsService{
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        LogisticCompanyDTO logisticCompanyDTO = logisticCompanyRepository.findLogisticCompanyById(1l);
+        LogisticCompanyDTO logisticCompanyDTO = logisticCompanyRepository.findByIdWithLogisticCompanyDTO(1l);
         LogisticCompany logisticCompany = logisticCompanyMapper.convertToEntity(logisticCompanyDTO);
 
         client.setRoles(roles);

@@ -25,29 +25,44 @@
     </div>
 </header>
 
-<div class="container mt-5" style="max-width:600px">
+<div class="container mt-5" style="max-width: 600px">
     <div class="row border rounded-top">
-        <form action="#" th:action="@{/employees/update}" th:object="${employee}" method="POST">
-            <!--            Set the id of the entity-->
-            <input type="hidden" name="id" th:value="${employee.id}"/>
-            <div class="mb-3 mt-3">
-                <label>First Name</label>
-                <input type="text" th:field="*{firstName}" class="form-control" required>
+        <form action="#" th:action="@{/employees/edit}" method="POST">
+            <input type="hidden" name="id" th:value="${employee.id}" />
+            <div class="form-group mb-3 mt-3">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" th:value="${employee.firstName}" required>
             </div>
-            <div class="mb-3 mt-3">
-                <label>Last Name</label>
-                <input type="text" th:field="*{lastName}" class="form-control" required>
+            <div class="form-group mb-3">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" th:value="${employee.lastName}" required>
             </div>
-            <div class="mb-3 mt-3">
-                <label>Birth Date</label>
-                <input type="text" th:field="*{birthDate}" class="form-control" placeholder="YYYY-MM-DD" aria-describedby="format" required>
-                <small id="format" class="form-text text-muted">Please use the following format "YYYY-MM-DD"</small>
+            <div class="form-group mb-3">
+                <label for="birthDate">Birth Date</label>
+                <input type="date" class="form-control" id="birthDate" name="birthDate" th:value="${employee.birthDate}" >
             </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary w-100">Update</button>
+            <div class="form-group mb-3">
+                <label for="logisticCompany">Logistic Company</label>
+                <select class="form-control" id="logisticCompany" name="logisticCompany">
+                    <option th:each="company : ${logisticCompanies}" th:value="${company.id}" th:text="${company.name}"></option>
+                </select>
             </div>
-            <a class="mb-2" th:href="@{/employees/list}">Back to employees</a>
+            <div class="form-group mb-3">
+                <label for="officeBranch">Office Branch</label>
+
+                <select class="form-control" id="officeBranch" name="officeBranch">
+                    <option th:each="branch : ${officeBranches}" th:value="${branch.id}" th:text="${branch.name}"></option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="position">Position</label>
+                <select class="form-control" id="position" name="position">
+                    <option th:each="position : ${positionCatalog}" th:value="${position.id}" th:text="${position.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Update</button>
         </form>
+
     </div>
 </div>
 

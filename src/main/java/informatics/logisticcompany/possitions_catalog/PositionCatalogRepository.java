@@ -1,9 +1,17 @@
 package informatics.logisticcompany.possitions_catalog;
 
+import informatics.logisticcompany.dto.position.PositionDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface PositionCatalogRepository extends JpaRepository<PositionCatalog, Long> {
-    // additional custom queries can be added here
+
+    @Query("SELECT new informatics.logisticcompany.dto.position.PositionDTO(p.id, p.name) FROM PositionCatalog p")
+    List<PositionDTO> findAllWithPositionDTO();
+
+
 }

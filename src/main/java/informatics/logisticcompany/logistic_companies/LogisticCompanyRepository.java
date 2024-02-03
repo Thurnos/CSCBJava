@@ -28,5 +28,10 @@ public interface LogisticCompanyRepository extends JpaRepository<LogisticCompany
 
     @Query("SELECT new informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO(" +
             "lc.id, lc.name, lc.address, lc.foundationDate) FROM LogisticCompany lc WHERE lc.id = :id")
-    LogisticCompanyDTO findLogisticCompanyById(Long id);
+    LogisticCompanyDTO findByIdWithLogisticCompanyDTO(Long id);
+
+    @Query("SELECT new informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO(lc.id, lc.name, lc.address, lc.foundationDate) FROM LogisticCompany lc")
+    List<LogisticCompanyDTO> findAllWithLogisticCompanyDTO();
+
+
 }

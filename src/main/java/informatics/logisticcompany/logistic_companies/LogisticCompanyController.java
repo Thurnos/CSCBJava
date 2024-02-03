@@ -1,11 +1,7 @@
 package informatics.logisticcompany.logistic_companies;
 
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
-import jakarta.persistence.EntityNotFoundException;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import informatics.logisticcompany.mapper.LogisticCompanyMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,18 +19,16 @@ import java.util.List;
 @RequestMapping("/logistic-companies")
 public class LogisticCompanyController {
     private final LogisticCompanyService logisticCompanyService;
-
-    private final ModelMapper modelMapper;
+    private final LogisticCompanyMapper logisticCompanyMapper;
 
     /**
      * Constructs the LogisticCompanyController with necessary dependencies.
      *
      * @param logisticCompanyService Service layer for logistic company operations.
-     * @param modelMapper            ModelMapper for converting between entity and DTO classes.
      */
-    public LogisticCompanyController(LogisticCompanyService logisticCompanyService, ModelMapper modelMapper) {
+    public LogisticCompanyController(LogisticCompanyService logisticCompanyService, LogisticCompanyMapper logisticCompanyMapper) {
         this.logisticCompanyService = logisticCompanyService;
-        this.modelMapper = modelMapper;
+        this.logisticCompanyMapper = logisticCompanyMapper;
     }
 
 
@@ -47,13 +41,12 @@ public class LogisticCompanyController {
     @GetMapping("/list")
     public String getAllCompanies(Model model) {
 
-        List<LogisticCompanyDTO> logisticCompanyDTOList = logisticCompanyService.getAllCompanies();
+        List<LogisticCompanyDTO> logisticCompanyDTOList = logisticCompanyService.getAllWithLogisticCompanyDTO();
 
         model.addAttribute("companies", logisticCompanyDTOList);
 
         return "logistic-companies/list-logistic-companies";
     }
-
 
     /**
      * Shows the form for creating a new logistic company.
@@ -85,19 +78,25 @@ public class LogisticCompanyController {
         return "redirect:/logistic-companies/list";
     }
 
-//    @PostMapping("/create")
-//    public LogisticCompany createCompany(@RequestBody LogisticCompany company) {
-//        return logisticCompanyService.createCompany(company);
-//    }
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        LogisticCompanyDTO logisticCompanyDTO = logisticCompanyService.findByIdWithLogisticCompanyDTO(id);
+        model.addAttribute("logisticCompany", logisticCompanyDTO);
 
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteLogisticCompany(@RequestParam("id") Long id) {
-        logisticCompanyService.deleteCompany(id);
-        return ResponseEntity.ok("Logistic Company with ID " + id + " has been deleted.");
+        return "/logistic-companies/edit-logistic-company";
     }
 
+    @PostMapping("/edit")
+    public String updateLogisticCompany(@ModelAttribute LogisticCompanyDTO logisticCompanyDTO) {
+        LogisticCompany logisticCompany = logisticCompanyMapper.convertToEntity(logisticCompanyDTO);
+        logisticCompanyService.saveCompany(logisticCompany);
+        return "redirect:/logistic-companies/list";
+    }
 
-
+    @PostMapping("/delete/{id}")
+    public String deleteLogisticCompany(@PathVariable("id") Long id) {
+        logisticCompanyService.deleteCompany(id);
+        return "redirect:/logistic-companies/list";
+    }
 
 }

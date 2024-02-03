@@ -1,5 +1,6 @@
 package informatics.logisticcompany.office_branches;
 
+import informatics.logisticcompany.dto.office_branch.OfficeBranchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,10 @@ public class OfficeBranchService {
         }
         // If the OfficeBranch with the given ID is not found, return null
         return null;
+    }
+
+    public List<OfficeBranchDTO> getAllWithOfficeBranchDTO() {
+        return officeBranchRepository.findAllWithOfficeBranchDTO();
     }
 
 

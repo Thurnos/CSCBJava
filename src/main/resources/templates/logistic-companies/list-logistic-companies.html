@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Logistic Companies</title>
@@ -30,9 +30,12 @@
                 <td th:text="${logisticCompany.getAddress()}" />
                 <td th:text="${logisticCompany.getFoundationDate()}" />
                 <td>
-                    <a th:href="@{/logistic-companies/update(logisticCompanyId=${})}">
-
-                    </a>
+                    <a class="btn btn-primary" th:href="@{/logistic-companies/edit/{id}(id=${logisticCompany.id})}">Edit</a>
+                </td>
+                <td>
+                    <form id="log-comp-delete" action="#" th:action="@{/logistic-companies/delete/{id}(id=${logisticCompany.id})}" method="POST">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
             </tbody>

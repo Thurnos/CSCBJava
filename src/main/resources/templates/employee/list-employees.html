@@ -36,27 +36,29 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Birth Date</th>
+            <th>Logistic Company</th>
+            <th>Office Branch</th>
+            <th>Position</th>
             <th>Action</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="employee : ${employees}">
-            <td th:text="${employee.getFirstName()}" />
-            <td th:text="${employee.getLastName()}" />
-            <td th:text="${employee.getBirthDate()}" />
+        <tr th:each="employee : ${employeeList}">
+            <td th:text="${employee.firstName}" />
+            <td th:text="${employee.lastName}" />
+            <td th:text="${employee.birthDate}" />
+            <td th:text="${employee.logisticCompanyName}" />
+            <td th:text="${employee.officeBranchName}" />
+            <td th:text="${employee.position}" />
             <td>
-                <a th:href="@{/employees/edit/{id}(id=${employee.id})}">Edit</a>
-                <form th:action="@{/employees/delete/{id}(id=${employee.id})}" method="POST">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                <a class="btn btn-primary" th:href="@{/employees/edit/{id}(id=${employee.id})}">Edit</a>
+            </td>
+            <td>
+                <form id="log-comp-delete" action="#" th:action="@{/employees/delete/{id}(id=${employee.id})}" method="POST">
+                    <button type="submit" class="btn btn-primary">Delete</button>
                 </form>
             </td>
-
-            <!--                <form method="POST">-->
-            <!--                    <input type="hidden" name="_method" value="delete"/>-->
-            <!--                    <button type="submit">Delete</button>-->
-            <!--                </form>-->
-
         </tr>
         </tbody>
     </table>
