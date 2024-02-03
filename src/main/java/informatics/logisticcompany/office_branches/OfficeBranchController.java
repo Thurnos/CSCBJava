@@ -1,6 +1,7 @@
 package informatics.logisticcompany.office_branches;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,25 @@ public class OfficeBranchController {
     @PostMapping
     public OfficeBranch createOfficeBranch(@RequestBody OfficeBranch officeBranch) {
         return officeBranchService.createOfficeBranch(officeBranch);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOfficeBranch(@PathVariable Long id) {
+        officeBranchService.deleteOfficeBranch(id);
+        return ResponseEntity.ok("Office Branch with ID " + id + " has been deleted.");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OfficeBranch> updateOfficeBranch(@PathVariable Long id,
+                                                           @RequestBody OfficeBranch updatedOfficeBranch) {
+        OfficeBranch officeBranch = officeBranchService.updateOfficeBranch(id, updatedOfficeBranch);
+
+        if (officeBranch != null) {
+            return ResponseEntity.ok(officeBranch);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 
