@@ -93,7 +93,7 @@ public class LogisticCompanyController {
         return "redirect:/logistic-companies/list";
     }
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteLogisticCompany(@PathVariable("id") Long id) {
         logisticCompanyService.deleteCompany(id);
         return "redirect:/logistic-companies/list";
