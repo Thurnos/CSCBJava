@@ -1,70 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Logistic Companies</title>
+    <title>Edit | Employee</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a th:href="@{/}" class="d-flex-align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z"/>
-                </svg>
-            </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li>
-                    <a th:href="@{/}" class="nav-link px-2 text-secondary">Home</a>
-                </li>
-            </ul>
+<header>
+    <div class="px-3 py-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a th:href="@{/}" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi d-block mx-auto mb-1 bi-person-fill-gear" viewBox="0 0 16 16">
+                        <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                    </svg> Employees </a>
+                </a>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                    <li>
+                        <a th:href="@{/}" class="nav-link text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi d-block mx-auto mb-1 bi-house-fill" viewBox="0 0 16 16">
+                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z" />
+                            </svg> Home </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/employees/list}" class="nav-link text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi d-block mx-auto mb-1 bi-person-fill-gear" viewBox="0 0 16 16">
+                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                            </svg> Employees </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="px-3 py-2 border-bottom mb-3">
+        <div class="container d-flex flex-wrap justify-content-center">
+            <div class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+                <!--                FILLER-->
+            </div>
+            <div class="text-end">
+                <a sec:authorize="isAnonymous()" th:href="@{/auth/login}" class="btn btn-light text-dark me-2">Login</a>
+                <a sec:authorize="isAnonymous()" th:href="@{/auth/register}" class="btn btn-primary">Register</a>
+                <form sec:authorize="isAuthenticated()" accept-charset="#" th:action="@{/logout}" method="POST">
+                    <input class="btn btn-primary" type="submit" value="Logout">
+                </form>
+            </div>
         </div>
     </div>
 </header>
-
-<div class="container mt-5" style="max-width: 600px">
+<div class="container mt-5" style="max-width:600px">
     <div class="row border rounded-top">
         <form action="#" th:action="@{/employees/edit}" method="POST">
             <input type="hidden" name="id" th:value="${employee.id}" />
-            <div class="form-group mb-3 mt-3">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" th:value="${employee.firstName}" required>
+            <div class="mb-3">
+                <label class="mb-1 mt-2">First Name</label>
+                <input type="text" name="firstName" th:value="${employee.firstName}" class="form-control" required>
             </div>
-            <div class="form-group mb-3">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" th:value="${employee.lastName}" required>
+            <div class="mb-3">
+                <label class="mb-1 mt-2">Last Name</label>
+                <input type="text" name="lastName" th:value="${employee.lastName}" class="form-control" required>
             </div>
-            <div class="form-group mb-3">
-                <label for="birthDate">Birth Date</label>
-                <input type="date" class="form-control" id="birthDate" name="birthDate" th:value="${employee.birthDate}" >
+            <div class="mb-3">
+                <label class="mb-1 mt-2">Birth Date</label>
+                <input type="date" name="birthDate" th:value="${employee.birthDate}" class="form-control" required>
             </div>
-            <div class="form-group mb-3">
-                <label for="logisticCompany">Logistic Company</label>
-                <select class="form-control" id="logisticCompany" name="logisticCompany">
+            <div class="mb-3">
+                <label class="mb-1 mt-2">Logistic Company</label>
+                <select class="form-control" name="logisticCompany">
                     <option th:each="company : ${logisticCompanies}" th:value="${company.id}" th:text="${company.name}"></option>
                 </select>
             </div>
-            <div class="form-group mb-3">
-                <label for="officeBranch">Office Branch</label>
-
-                <select class="form-control" id="officeBranch" name="officeBranch">
-                    <option th:each="branch : ${officeBranches}" th:value="${branch.id}" th:text="${branch.name}"></option>
+            <div class="mb-3">
+                <label class="mb-1 mt-2">Office Branch</label>
+                <select class="form-control" name="officeBranch">
+                    <option th:each="office : ${officeBranches}" th:value="${office.id}" th:text="${office.name}"></option>
                 </select>
             </div>
-            <div class="form-group mb-3">
-                <label for="position">Position</label>
-                <select class="form-control" id="position" name="position">
+            <div class="mb-3">
+                <label class="mb-1 mt-2">Position</label>
+                <select class="form-control" name="position">
                     <option th:each="position : ${positionCatalog}" th:value="${position.id}" th:text="${position.name}"></option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary mb-3">Update</button>
+            <button type="submit" class="btn btn-primary mb-3 w-100">Update</button>
         </form>
-
+        <a class="mb-2" th:href="@{/employees/list}">Back to employee companies list</a>
     </div>
 </div>
-
 </body>
 </html>

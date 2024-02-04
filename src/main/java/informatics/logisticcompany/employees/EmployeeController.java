@@ -110,7 +110,7 @@ public class EmployeeController {
         return "redirect:/employees/list";
     }
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
         return "redirect:/employees/list";
