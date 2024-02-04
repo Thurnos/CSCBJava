@@ -78,5 +78,11 @@ public class EmployeeService {
     public Employee findEmployeeById(Long id) {
         return employeeRepository.findEmployeeById(id);
     }
+    public EmployeeDTO findEmployeeWithEmployeeDTOByUsername(String username) {
+        return employeeRepository.findWithEmployeeDTOByUsername(username);
+    }
+    public Employee findEmployeeByUsername(String username) {
+        return employeeRepository.findEmployeeByUsername(username);
+    }
 
 }

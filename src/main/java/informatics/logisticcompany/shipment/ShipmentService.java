@@ -1,5 +1,6 @@
 package informatics.logisticcompany.shipment;
 
+import informatics.logisticcompany.dto.shipment.ShipmentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +62,13 @@ public class ShipmentService {
      */
     public void deleteShipment(Long shipmentId) {
         shipmentRepository.deleteById(shipmentId);
+    }
+
+    public List<ShipmentDTO> getAllShipmentsWithShipmentDTO() {
+        return shipmentRepository.findAllShipmentsWithShipmentDTO();
+    }
+
+    public void save(Shipment shipment) {
+        shipmentRepository.save(shipment);
     }
 }

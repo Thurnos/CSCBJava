@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Logistic Company</title>
+    <title>Shipments</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
@@ -12,9 +12,10 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a th:href="@{/logistic-companies/list}" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-buildings-fill" viewBox="0 0 16 16">
-                        <path d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zM2 11h1v1H2zm2 0h1v1H4zm-1 2v1H2v-1zm1 0h1v1H4zm9-10v1h-1V3zM8 5h1v1H8zm1 2v1H8V7zM8 9h1v1H8zm2 0h1v1h-1zm-1 2v1H8v-1zm1 0h1v1h-1zm3-2v1h-1V9zm-1 2h1v1h-1zm-2-4h1v1h-1zm3 0v1h-1V7zm-2-2v1h-1V5zm1 0h1v1h-1z" />
-                    </svg> Companies </a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+                    </svg> Shipments </a>
+
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
                         <a th:href="@{/}" class="nav-link text-white">
@@ -25,9 +26,9 @@
                     </li>
                     <li>
                         <a th:href="@{/logistic-companies/list}" class="nav-link text-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi d-block mx-auto mb-1 bi-buildings-fill" viewBox="0 0 16 16">
-                                <path d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zM2 11h1v1H2zm2 0h1v1H4zm-1 2v1H2v-1zm1 0h1v1H4zm9-10v1h-1V3zM8 5h1v1H8zm1 2v1H8V7zM8 9h1v1H8zm2 0h1v1h-1zm-1 2v1H8v-1zm1 0h1v1h-1zm3-2v1h-1V9zm-1 2h1v1h-1zm-2-4h1v1h-1zm3 0v1h-1V7zm-2-2v1h-1V5zm1 0h1v1h-1z" />
-                            </svg> Companies </a>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi d-block mx-auto mb-1 bi-box-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+                            </svg> Shipments </a>
                     </li>
                 </ul>
             </div>
@@ -49,26 +50,38 @@
     </div>
 </header>
 <div class="container">
-    <a th:href="@{/logistic-companies/create}" class="btn btn-primary mb-2">Create Company</a>
+    <a th:href="@{/shipments/create}" class="btn btn-primary mb-2">Create Shipment</a>
     <table class="table">
         <thead class="table-dark">
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Address</th>
-            <th scope="col">Foundation Date</th>
+            <th scope="col">UUID</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Recipient</th>
+            <th scope="col">Registered By</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Status</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Total Cost</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Delivery Type</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="company : ${companies}">
-            <td th:text="${company.id}" />
-            <td th:text="${company.name}" />
-            <td th:text="${company.address}" />
-            <td th:text="${company.foundationDate}" />
+        <tr th:each="shipment : ${shipments}">
+            <td th:text="${shipment.uuid}" />
+            <td th:text="${shipment.sender}" />
+            <td th:text="${shipment.recipient}" />
+            <td th:text="${shipment.registeredBy}" />
+            <td th:text="${shipment.destination}" />
+            <td th:text="${shipment.status}" />
+            <td th:text="${shipment.weight}" />
+            <td th:text="${shipment.totalCost}" />
+            <td th:text="${shipment.createdAt}" />
+            <td th:text="${shipment.deliveryType}" />
             <td>
-                <a class="mx-1" th:href="@{/logistic-companies/edit/{id}(id=${company.id})}">Edit</a>
-                <a class="mx-1" th:href="@{/logistic-companies/delete/{id}(id=${company.id})}">Delete</a>
+                <a class="mx-1" th:href="@{/shipments/edit/{id}(id=${shipment.id})}">Edit</a>
+                <a class="mx-1" th:href="@{/shipments/delete/{id}(id=${shipment.id})}">Delete</a>
             </td>
         </tr>
         </tbody>

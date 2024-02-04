@@ -1,5 +1,6 @@
 package informatics.logisticcompany.client;
 
+import informatics.logisticcompany.dto.client.ClientDTO;
 import informatics.logisticcompany.employees.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,9 @@ public class ClientService {
     public void saveClient(Client client) {
         clientRepository.save(client);
     }
-
+    public List<ClientDTO> getAllClientsWithClientDTO() {
+        return clientRepository.findAllWithClientDTO();
+    }
 
 
 
