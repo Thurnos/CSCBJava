@@ -1,6 +1,8 @@
 package informatics.logisticcompany.employees;
 
 import informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO;
+import informatics.logisticcompany.dto.employee.EmployeeDTO;
+import informatics.logisticcompany.dto.employee.UpdateEmployeeDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -35,5 +37,22 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO(e.id, e.firstName, e.lastName, e.birthDate) FROM Employee e WHERE e.id =:employeeId")
     EmployeeBasicInfoDTO findEmployeeWithBasicInfoById(Long employeeId);
+
+    @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeDTO(e.id, e.firstName, e.lastName, e.birthDate, e.logisticCompany.name, e.officeBranch.name, e.position.name) FROM Employee e")
+    List<EmployeeDTO> findAllWithEmployeeDTO();
+
+    @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeDTO(e.id, e.firstName, e.lastName, e.birthDate, e.logisticCompany.name, e.officeBranch.name, e.position.name) FROM Employee e WHERE e.id = :id")
+    EmployeeDTO findByIdWithEmployeeDTO(Long id);
+
+    @Query("SELECT new informatics.logisticcompany.dto.employee.UpdateEmployeeDTO(e.id, e.firstName, e.lastName, e.birthDate, e.logisticCompany, e.officeBranch, e.position) FROM Employee e")
+    UpdateEmployeeDTO findByIdWithUpdateEmployeeDTO(Long id);
+
+    Employee findEmployeeById(Long id);
+    Employee findEmployeeByUsername(String username);
+
+    @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeDTO(e.id, e.firstName, e.lastName, e.birthDate, e.logisticCompany.name, e.officeBranch.name, e.position.name) FROM Employee e WHERE e.username = :username")
+    EmployeeDTO findWithEmployeeDTOByUsername(String username);
+
+
 
 }

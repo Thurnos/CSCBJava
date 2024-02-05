@@ -1,5 +1,6 @@
 package informatics.logisticcompany.delivery;
 
+import informatics.logisticcompany.dto.delivery_type.DeliveryTypeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,10 @@ public class DeliveryTypeService {
      */
     public DeliveryType createDeliveryType(DeliveryType deliveryType) {
         return deliveryTypeRepository.save(deliveryType);
+    }
+
+    public List<DeliveryTypeDTO> getAllWithDeliveryTypeDTO() {
+        return deliveryTypeRepository.findAllWithDeliveryTypeDTO();
     }
 
     // Add other service methods as needed

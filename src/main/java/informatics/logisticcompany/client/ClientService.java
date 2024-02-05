@@ -67,7 +67,9 @@ public class ClientService {
     public void saveClient(Client client) {
         clientRepository.save(client);
     }
-
+    public List<ClientDTO> getAllClientsWithClientDTO() {
+        return clientRepository.findAllWithClientDTO();
+    }
 
 
 
