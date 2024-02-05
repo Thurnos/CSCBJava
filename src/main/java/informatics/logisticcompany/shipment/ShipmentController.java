@@ -133,20 +133,36 @@ public class ShipmentController {
      */
     @GetMapping("/edit/{id}")
     public String editShipment(@PathVariable("id") Long id, Model model) {
-        Shipment shipment = shipmentService.findShipmentById(id);
-        model.addAttribute("shipment", shipment);
-        return "shipment/edit-shipment";
+
+        ShipmentDTO shipmentDTO = shipmentService.findByIdWithShipmentDTO(id);
+        List<ClientDTO> clientDTOList = clientService.getAllClientsWithClientDTO();
+        List<DeliveryTypeDTO> deliveryTypeDTOList = deliveryTypeService.getAllWithDeliveryTypeDTO();
+        List<ShipmentStatusDTO> shipmentStatusDTOList = shipmentStatusService.getAllWithShipmentStatusDTO();
+        List<PricingTierDTO> pricingTierDTOList = pricingTierService.getAllWithPricingTierDTO();
+        List<LogisticCompanyDTO> logisticCompanyDTOList = logisticCompanyService.getAllWithLogisticCompanyDTO();
+
+        model.addAttribute("clientList", clientDTOList);
+        model.addAttribute("deliveryTypeList", deliveryTypeDTOList);
+        model.addAttribute("shipmentStatusList", shipmentStatusDTOList);
+        model.addAttribute("pricingTierList", pricingTierDTOList);
+        model.addAttribute("logisticCompaniesList", logisticCompanyDTOList);
+        model.addAttribute("shipment", shipmentDTO);
+
+        return "/shipment/edit-shipment";
     }
 
-    /**
-     * Processes the submission of the shipment edit form.
-     *
-     * @param updatedShipment The updated Shipment entity from the form submission.
-     * @return Redirects to the list of shipments upon successful update.
-     */
-    @PostMapping("/update")
-    public String updateShipment(@ModelAttribute("shipment") Shipment updatedShipment) {
-        shipmentService.updateShipment(updatedShipment);
+
+    @PostMapping("/edit")
+    public String updateShipment(@ModelAttribute("shipment") Shipment shipment) {
+
+        Shipment entity = shipmentService.findShipmentById(shipment.getId());
+
+        shipment.setCreated(entity.getCreated());
+        shipment.setTotal(entity.getTotal());
+        shipment.setUuid(entity.getUuid());
+        shipment.setRegisteredBy(entity.getRegisteredBy());
+
+        shipmentService.updateShipment(shipment);
         return "redirect:/shipments/list";
     }
 

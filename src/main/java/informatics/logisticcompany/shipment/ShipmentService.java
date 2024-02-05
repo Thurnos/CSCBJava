@@ -68,7 +68,12 @@ public class ShipmentService {
         return shipmentRepository.findAllShipmentsWithShipmentDTO();
     }
 
+    public ShipmentDTO findByIdWithShipmentDTO(Long id) {
+        return shipmentRepository.findByIdWithShipmentDTO(id);
+    }
+
     public void save(Shipment shipment) {
         shipmentRepository.save(shipment);
     }
+
 }
