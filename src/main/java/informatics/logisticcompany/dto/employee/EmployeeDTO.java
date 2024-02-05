@@ -1,36 +1,26 @@
 package informatics.logisticcompany.dto.employee;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class EmployeeDTO {
-
-    private Long id;
+    private int userId;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate;
-    private String logisticCompanyName;
-    private String officeBranchName;
-    private String position;
+    private Date birthDate;
+    private int logisticCompanyId;
+    private int officeBranchId;
+    private int employeePosition;
 
     public EmployeeDTO() {
+
     }
 
-    public EmployeeDTO(Long id, String firstName, String lastName, LocalDate birthDate, String logisticCompanyName, String officeBranchName, String position) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.logisticCompanyName = logisticCompanyName;
-        this.officeBranchName = officeBranchName;
-        this.position = position;
+    public int getUserId() {
+        return userId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -49,48 +39,45 @@ public class EmployeeDTO {
         this.lastName = lastName;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
-    public String getLogisticCompanyName() {
-        return logisticCompanyName;
+    public int getLogisticCompanyId() {
+        return logisticCompanyId;
     }
 
-    public void setLogisticCompanyName(String logisticCompanyName) {
-        this.logisticCompanyName = logisticCompanyName;
+    public void setLogisticCompanyId(int logisticCompanyId) {
+        this.logisticCompanyId = logisticCompanyId;
     }
 
-    public String getOfficeBranchName() {
-        return officeBranchName;
+    public int getOfficeBranchId() {
+        return officeBranchId;
     }
 
-    public void setOfficeBranchName(String officeBranchName) {
-        this.officeBranchName = officeBranchName;
+    public void setOfficeBranchId(int officeBranchId) {
+        this.officeBranchId = officeBranchId;
     }
 
-    public String getPosition() {
-        return position;
+    public int getEmployeePosition() {
+        return employeePosition;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setEmployeePosition(int employeePosition) {
+        this.employeePosition = employeePosition;
     }
 
-    @Override
-    public String toString() {
-        return "EmployeeDTO{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                ", logisticCompanyName='" + logisticCompanyName + '\'' +
-                ", officeBranchName='" + officeBranchName + '\'' +
-                ", position='" + position + '\'' +
-                '}';
+    public EmployeeDTO(int userId, String firstName, String lastName, Date birthDate, int logisticCompanyId, int officeBranchId, int employeePosition) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.logisticCompanyId = logisticCompanyId;
+        this.officeBranchId = officeBranchId;
+        this.employeePosition = employeePosition;
     }
 }

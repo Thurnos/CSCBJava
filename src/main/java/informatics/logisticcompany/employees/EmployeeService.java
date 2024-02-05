@@ -1,8 +1,6 @@
 package informatics.logisticcompany.employees;
 
 import informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO;
-import informatics.logisticcompany.dto.employee.EmployeeDTO;
-import informatics.logisticcompany.dto.employee.UpdateEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,17 +64,4 @@ public class EmployeeService {
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
-
-    public List<EmployeeDTO> getAllWithEmployeeDTO() {
-        return employeeRepository.findAllWithEmployeeDTO();
-    }
-
-    public EmployeeDTO findByIdWIthEmployeeDTO(Long id) {
-        return employeeRepository.findByIdWithEmployeeDTO(id);
-    }
-    public UpdateEmployeeDTO findByIdWithUpdateEmployeeDTO(Long id) { return employeeRepository.findByIdWithUpdateEmployeeDTO(id); }
-    public Employee findEmployeeById(Long id) {
-        return employeeRepository.findEmployeeById(id);
-    }
-
 }
