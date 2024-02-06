@@ -1,6 +1,7 @@
 package informatics.logisticcompany.shipment;
 
 import informatics.logisticcompany.dto.shipment.ShipmentDTO;
+import informatics.logisticcompany.dto.shipment.ShipmentStatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,4 +77,7 @@ public class ShipmentService {
         shipmentRepository.save(shipment);
     }
 
+    public ShipmentStatusDTO findByIdWithShipmentStatusDTO(Long id) {
+        return shipmentRepository.findShipmentWithShipmentStatusDTO(id);
+    }
 }

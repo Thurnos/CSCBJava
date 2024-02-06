@@ -1,5 +1,6 @@
 package informatics.logisticcompany.client;
 import informatics.logisticcompany.dto.client.ClientDTO;
+import informatics.logisticcompany.dto.shipment.ShipmentStatusDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

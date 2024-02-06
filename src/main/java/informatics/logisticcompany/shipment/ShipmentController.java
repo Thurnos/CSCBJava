@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -175,6 +176,30 @@ public class ShipmentController {
     @GetMapping("/delete/{id}")
     public String deleteShipment(@PathVariable("id") Long id) {
         shipmentService.deleteShipment(id);
+        return "redirect:/shipments/list";
+    }
+
+    @GetMapping("/edit-status/{id}")
+    public String showUpdateStatusForm(@PathVariable("id") Long id, Model model) {
+
+        informatics.logisticcompany.dto.shipment.ShipmentStatusDTO shipmentStatusDTO = shipmentService.findByIdWithShipmentStatusDTO(id);
+        List<ShipmentStatusDTO> shipmentStatusDTOList = shipmentStatusService.getAllWithShipmentStatusDTO();
+
+        model.addAttribute("shipment", shipmentStatusDTO);
+        model.addAttribute("statusList", shipmentStatusDTOList);
+
+        return "/shipment/edit-status";
+    }
+
+    @PostMapping("/edit-status")
+    public String updateShipmentStatus(@ModelAttribute("shipment") Shipment shipment) {
+
+        Shipment entity = shipmentService.findShipmentById(shipment.getId());
+        ShipmentStatus shipmentStatus = shipmentStatusService.findShipmentStatusById(shipment.getShipmentStatus().getId());
+
+        entity.setShipmentStatus(shipmentStatus);
+
+        shipmentService.save(entity);
         return "redirect:/shipments/list";
     }
 }

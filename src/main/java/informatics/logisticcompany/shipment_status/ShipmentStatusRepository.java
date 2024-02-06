@@ -12,4 +12,6 @@ public interface ShipmentStatusRepository extends JpaRepository<ShipmentStatus, 
 
     @Query("SELECT new informatics.logisticcompany.dto.shipment_status.ShipmentStatusDTO(s.id, s.lastUpdated, s.notes, s.shipmentStatus.name) FROM ShipmentStatus s")
     List<ShipmentStatusDTO> findAllWithShipmentStatusDTO();
+
+    ShipmentStatus findShipmentStatusById(Long id);
 }
