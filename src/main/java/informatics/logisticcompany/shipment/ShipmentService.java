@@ -80,4 +80,8 @@ public class ShipmentService {
     public ShipmentStatusDTO findByIdWithShipmentStatusDTO(Long id) {
         return shipmentRepository.findShipmentWithShipmentStatusDTO(id);
     }
+
+    public List<ShipmentDTO> getAllBySenderOrRecipientId(Long id) {
+        return shipmentRepository.findBySenderOrRecipient(id);
+    }
 }
