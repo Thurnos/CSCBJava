@@ -1,14 +1,11 @@
 package informatics.logisticcompany.client;
 
-import informatics.logisticcompany.dto.client.ClientDTO;
 import informatics.logisticcompany.employees.Employee;
-import informatics.logisticcompany.mapper.ClientDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -29,7 +26,6 @@ public class ClientService {
      * Retrieves all clients from the repository.
      *
      * @return A List of all Client entities stored in the database.
-     *
      */
     public List<Client> getAllClients() {
         return clientRepository.findAll();
@@ -55,13 +51,6 @@ public class ClientService {
         }
 
         return false;
-    }
-    public List<ClientDTO> findClientsByLogisticCompanyName(String companyName) {
-        List<Object[]> clientsData = clientRepository.findClientsByLogisticCompanyName(companyName);
-
-        return clientsData.stream()
-                .map(ClientDTOMapper::mapToClientDTO)
-                .collect(Collectors.toList());
     }
 
     public void saveClient(Client client) {
