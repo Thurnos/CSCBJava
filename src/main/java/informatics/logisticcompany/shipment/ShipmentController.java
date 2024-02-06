@@ -152,6 +152,12 @@ public class ShipmentController {
         return "/shipment/edit-shipment";
     }
 
+    @GetMapping("/not-delivered")
+    public String getNotDeliveredShipments(Model model) {
+        List<ShipmentDTO> notDeliveredShipments = shipmentService.findShipmentsNotDelivered();
+        model.addAttribute("notDeliveredShipments", notDeliveredShipments);
+        return "shipment/not-delivered";
+    }
 
     @PostMapping("/edit")
     public String updateShipment(@ModelAttribute("shipment") Shipment shipment) {

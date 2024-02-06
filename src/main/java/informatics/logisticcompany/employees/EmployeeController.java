@@ -94,6 +94,12 @@ public class EmployeeController {
         return "/employee/edit-employee";
     }
 
+    @GetMapping("/by-company/{companyId}")
+    public String listEmployeesByCompanyId(@PathVariable("companyId") Long companyId, Model model) {
+        List<Object[]> employees = employeeService.findEmployeesByCompanyId(companyId);
+        model.addAttribute("employees", employees);
+        return "employees/list-basic-info"; // Ensure you have a corresponding view template for basic info
+    }
     @PostMapping("/edit")
     public String saveEmployee(@ModelAttribute UpdateEmployeeDTO updateEmployeeDTO) {
 

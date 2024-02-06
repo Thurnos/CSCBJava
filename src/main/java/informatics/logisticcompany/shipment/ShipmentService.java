@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
 
+    public List<ShipmentDTO> findShipmentsNotDelivered() {
+        return shipmentRepository.findShipmentsNotDelivered();
+    }
     @Autowired
     public ShipmentService(ShipmentRepository shipmentRepository) {
         this.shipmentRepository = shipmentRepository;
