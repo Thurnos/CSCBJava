@@ -20,4 +20,10 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
 
     @Query("SELECT new informatics.logisticcompany.dto.shipment.ShipmentDTO(s.id, s.uuid, s.destination, s.weight, s.created, s.total, s.sender.firstname, s.recipient.firstname, s.registeredBy.firstName, s.deliveryType.name, s.shipmentStatus.shipmentStatus.name, s.logisticCompany.name, s.pricingTier.id) FROM Shipment s WHERE s.sender.id = :id OR s.recipient.id = :id")
     List<ShipmentDTO> findBySenderOrRecipient(Long id);
+
+    @Query("SELECT new informatics.logisticcompany.dto.shipment.ShipmentDTO(s.id, s.uuid, s.destination, s.weight, s.created, s.total, s.sender.firstname, s.recipient.firstname, s.registeredBy.firstName, s.deliveryType.name, s.shipmentStatus.shipmentStatus.name, s.logisticCompany.name, s.pricingTier.id) FROM Shipment s WHERE s.sender.id = :id")
+    List<ShipmentDTO> findBySenderId(Long id);
+
+    @Query("SELECT new informatics.logisticcompany.dto.shipment.ShipmentDTO(s.id, s.uuid, s.destination, s.weight, s.created, s.total, s.sender.firstname, s.recipient.firstname, s.registeredBy.firstName, s.deliveryType.name, s.shipmentStatus.shipmentStatus.name, s.logisticCompany.name, s.pricingTier.id) FROM Shipment s WHERE s.recipient.id = :id")
+    List<ShipmentDTO> findByRecipientId(Long id);
 }

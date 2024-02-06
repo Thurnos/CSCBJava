@@ -46,4 +46,10 @@ public class HomeController {
 
         return "/my-orders/my-orders";
     }
+
+    @GetMapping("/requests")
+    public String requests() {
+
+        return "/request/requests";
+    }
 }
