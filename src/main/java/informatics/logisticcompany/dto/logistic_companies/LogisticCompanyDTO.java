@@ -19,6 +19,7 @@ public class LogisticCompanyDTO {
         this.foundationDate = foundationDate;
     }
 
+
     public Long getId() {
         return id;
     }

@@ -1,11 +1,16 @@
 package informatics.logisticcompany.logistic_companies;
 
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
+import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyWithCostDTO;
 import informatics.logisticcompany.mapper.LogisticCompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -36,6 +41,15 @@ public class LogisticCompanyService {
 //        return logisticCompanyRepository.findAll();
 //    }
 
+    public List<LogisticCompanyWithCostDTO> findLogisticCompanyDeliveryCostsBetween(Date startDate, Date endDate) {
+        List<Object[]> results = logisticCompanyRepository.findLogisticCompanyDeliveryCostsBetween(startDate, endDate);
+        return results.stream().map(result -> {
+            Long id = ((Number) result[0]).longValue();
+            String name = (String) result[1];
+            BigDecimal totalDeliveryCost = (BigDecimal) result[2];
+            return new LogisticCompanyWithCostDTO(id, name, null, null, totalDeliveryCost);
+        }).collect(Collectors.toList());
+    }
 
     /**
      * Retrieves all logistic companies, sorted by name in ascending order, and converts them to DTOs.

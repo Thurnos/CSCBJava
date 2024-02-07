@@ -1,11 +1,14 @@
 package informatics.logisticcompany.logistic_companies;
 
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
+import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyWithCostDTO;
 import informatics.logisticcompany.mapper.LogisticCompanyMapper;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -76,6 +79,13 @@ public class LogisticCompanyController {
         logisticCompanyService.createCompany(logisticCompany);
 
         return "redirect:/logistic-companies/list";
+    }
+
+    @GetMapping("/logistic-companies/delivery-costs")
+    public List<LogisticCompanyWithCostDTO> getLogisticCompanyDeliveryCostsBetween(
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return logisticCompanyService.findLogisticCompanyDeliveryCostsBetween(startDate, endDate);
     }
 
     @GetMapping("/edit/{id}")
