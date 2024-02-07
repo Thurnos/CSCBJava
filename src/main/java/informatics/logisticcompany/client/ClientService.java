@@ -1,7 +1,6 @@
 package informatics.logisticcompany.client;
 
 import informatics.logisticcompany.dto.client.ClientDTO;
-import informatics.logisticcompany.employees.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,10 +56,20 @@ public class ClientService {
     public void saveClient(Client client) {
         clientRepository.save(client);
     }
-    public List<ClientDTO> getAllClientsWithClientDTO() {
-        return clientRepository.findAllWithClientDTO();
+
+
+    public void deleteClient(Long id) {clientRepository.deleteById(id);}
+
+    public List<ClientDTO> getAllClientsWithClientDTO() {return clientRepository.findAllWithClientDTO();}
+
+    public Optional<Client> findById(Long id) {
+        return clientRepository.findById(id);
     }
 
+    public void updateClient(Long id, Client updatedClient) {
+        // Assuming ClientRepository has a method to save the updated client
+        clientRepository.save(updatedClient);
+    }
 
-
+    public Client getClientById(Long id){return clientRepository.findClientById(id);}
 }

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +47,8 @@ public interface LogisticCompanyRepository extends JpaRepository<LogisticCompany
 
     @Query("SELECT new informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO(lc.id, lc.name, lc.address, lc.foundationDate) FROM LogisticCompany lc")
     List<LogisticCompanyDTO> findAllWithLogisticCompanyDTO();
+
+    LogisticCompany findLogisticCompanyById(Long id);
 
 
 }

@@ -1,6 +1,5 @@
 package informatics.logisticcompany.employees;
 
-import informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO;
 import informatics.logisticcompany.dto.employee.EmployeeDTO;
 import informatics.logisticcompany.dto.employee.UpdateEmployeeDTO;
 import informatics.logisticcompany.dto.logistic_companies.LogisticCompanyDTO;
@@ -14,7 +13,6 @@ import informatics.logisticcompany.office_branches.OfficeBranchService;
 import informatics.logisticcompany.possitions_catalog.PositionCatalogService;
 import informatics.logisticcompany.roles.Role;
 import informatics.logisticcompany.roles.RoleService;
-import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

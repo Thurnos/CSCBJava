@@ -3,9 +3,6 @@ package informatics.logisticcompany.client;
 import informatics.logisticcompany.logistic_companies.LogisticCompany;
 import informatics.logisticcompany.shipment.Shipment;
 import informatics.logisticcompany.users.User;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import jakarta.persistence.*;
 
 import java.util.Set;

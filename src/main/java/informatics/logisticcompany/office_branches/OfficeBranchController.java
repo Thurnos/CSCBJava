@@ -1,17 +1,19 @@
 package informatics.logisticcompany.office_branches;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing office branches.
  * Provides endpoints for retrieving and creating office branches.
  */
-@RestController
-@RequestMapping("/api/office-branches")
+@Controller
+@RequestMapping("/office-branches")
 public class OfficeBranchController {
     private final OfficeBranchService officeBranchService;
 
@@ -46,22 +48,55 @@ public class OfficeBranchController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOfficeBranch(@PathVariable Long id) {
+
+
+    @GetMapping("/delete/{id}")
+    public String deleteOffice(@PathVariable("id") Long id) {
         officeBranchService.deleteOfficeBranch(id);
-        return ResponseEntity.ok("Office Branch with ID " + id + " has been deleted.");
+        return "redirect:/office-branches/list";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<OfficeBranch> updateOfficeBranch(@PathVariable Long id,
-                                                           @RequestBody OfficeBranch updatedOfficeBranch) {
-        OfficeBranch officeBranch = officeBranchService.updateOfficeBranch(id, updatedOfficeBranch);
 
-        if (officeBranch != null) {
-            return ResponseEntity.ok(officeBranch);
+    @GetMapping("/list")
+    public String listOffices(Model model) {
+        List<OfficeBranch> officeList = officeBranchService.getAllOffices();
+        model.addAttribute("officeList", officeList);
+        return "office/list-offices";
+    }
+
+    @GetMapping("/create")
+    public String showCreateOfficeForm(Model model) {
+        model.addAttribute("officeBranch", new OfficeBranch()); // Add an empty OfficeBranch object to bind the form
+        return "/office/create-offices";
+    }
+
+    @PostMapping("/create")
+    public String createOffice(@ModelAttribute OfficeBranch officeBranch) {
+        officeBranchService.createOfficeBranch(officeBranch);
+        return "redirect:/office-branches/list";
+    }
+
+
+    @PostMapping("/edit/{id}")
+    public String editOffice(@PathVariable Long id, Model model) {
+        Optional<OfficeBranch> officeBranchOptional = officeBranchService.findById(id);
+        if (officeBranchOptional.isPresent()) {
+            OfficeBranch officeBranch = officeBranchOptional.get();
+            model.addAttribute("officeBranch", officeBranch);
+            return "office/edit-offices";
         } else {
-            return ResponseEntity.notFound().build();
+            return "redirect:/office-branches/list";
         }
     }
-}
+
+
+
+
+
+
+    }
+
+
+
+
 

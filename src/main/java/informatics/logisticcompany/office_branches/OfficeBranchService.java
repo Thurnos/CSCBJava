@@ -52,26 +52,36 @@ public class OfficeBranchService {
         officeBranchRepository.deleteById(id);
     }
 
-    public OfficeBranch updateOfficeBranch(Long id, OfficeBranch updatedOfficeBranch) {
-        Optional<OfficeBranch> existingOfficeBranch = officeBranchRepository.findById(id);  // Retrieve the existing OfficeBranch by its ID
-        // check if the existing OfficeBranch is present in the repository
-        if (existingOfficeBranch.isPresent()) {
-            OfficeBranch officeBranch = existingOfficeBranch.get();  // If present, get the OfficeBranch object
-
-            // update the properties of the existing OfficeBranch with the values from the updatedOfficeBranch
-            officeBranch.setName(updatedOfficeBranch.getName());
-            officeBranch.setAddress(updatedOfficeBranch.getAddress());
-            officeBranch.setLogisticCompany(updatedOfficeBranch.getLogisticCompany());
-            // save the updated OfficeBranch back to the repository
-            return officeBranchRepository.save(officeBranch);
-        }
-        // If the OfficeBranch with the given ID is not found, return null
-        return null;
-    }
 
     public List<OfficeBranchDTO> getAllWithOfficeBranchDTO() {
         return officeBranchRepository.findAllWithOfficeBranchDTO();
     }
 
+    public List<OfficeBranch> getAllOffices() {
+        return officeBranchRepository.findAll();
+    }
+
+    public OfficeBranch getOfficeBranchById(Long id) {
+        return officeBranchRepository.findById(id).orElse(null);
+    }
+
+    public Optional<OfficeBranch> findById(Long id) {
+        return officeBranchRepository.findById(id);
+    }
+
+
+    public void updateOfficeBranch(Long id, OfficeBranch updatedOfficeBranch) {
+        Optional<OfficeBranch> officeBranchOptional = officeBranchRepository.findById(id);
+        if (officeBranchOptional.isPresent()) {
+            OfficeBranch officeBranch = officeBranchOptional.get();
+            // Update properties of officeBranch with values from updatedOfficeBranch
+            officeBranch.setName(updatedOfficeBranch.getName());
+            officeBranch.setAddress(updatedOfficeBranch.getAddress());
+            // Update other properties as needed
+            officeBranchRepository.save(officeBranch);
+        }
 
     }
+
+
+}
