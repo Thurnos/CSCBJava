@@ -28,8 +28,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
      *         the user's ID, first name, last name, birth date, position name,
      *         office branch name, and logistic company name.
      */
-    @Query(value = "SELECT e.users_user_id, e.employee_first_name, e.employee_last_name, e.employee_birth_date, pc.position_name, ob.office_branch_name, lc.logistic_company_name FROM employees e JOIN logistic_companies lc ON e.logistic_company_id = lc.logistic_company_id JOIN office_branches ob ON e.office_branch_id = ob.office_branch_id JOIN positions_catalog pc ON e.employee_position = pc.position_catalog_id WHERE lc.logistic_company_id = :companyId", nativeQuery = true)
-    List<Object[]> findEmployeesByCompanyId(@Param("companyId") Long companyId);
+    @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO(e.id, e.firstName, e.lastName, e.birthDate) FROM Employee e WHERE e.logisticCompany.id = :companyId")
+    List<EmployeeBasicInfoDTO> findEmployeesByCompanyId(@Param("companyId") Long companyId);
 
 
     @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeBasicInfoDTO(e.id, e.firstName, e.lastName, e.birthDate) FROM Employee e")

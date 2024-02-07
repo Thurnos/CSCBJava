@@ -51,7 +51,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public List<Object[]> findEmployeesByCompanyId(Long companyId) {
+    public List<EmployeeBasicInfoDTO> findEmployeesByCompanyId(Long companyId) {
         return employeeRepository.findEmployeesByCompanyId(companyId);
     }
     public List<EmployeeBasicInfoDTO> getAllEmployeesWithBasicInfo() {

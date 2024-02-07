@@ -12,7 +12,7 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
     @Query("SELECT new informatics.logisticcompany.dto.shipment.ShipmentDTO(s.id, s.uuid, s.destination, s.weight, s.created, s.total, s.sender.firstname, s.recipient.firstname, s.registeredBy.firstName, s.deliveryType.name, s.shipmentStatus.shipmentStatus.name, s.logisticCompany.name, s.pricingTier.id) FROM Shipment s")
     List<ShipmentDTO> findAllShipmentsWithShipmentDTO();
 
-    @Query("SELECT s FROM Shipment s JOIN s.shipmentStatus ss JOIN ss.shipmentStatus ssc WHERE ssc.name != 'Delivered'")
+    @Query("SELECT new informatics.logisticcompany.dto.shipment.ShipmentDTO(s.id, s.uuid, s.destination, s.weight, s.created, s.total, s.sender.firstname, s.recipient.firstname, s.registeredBy.firstName, s.deliveryType.name, s.shipmentStatus.shipmentStatus.name, s.logisticCompany.name, s.pricingTier.id) FROM Shipment s JOIN s.shipmentStatus ss JOIN ss.shipmentStatus ssc WHERE ssc.name != 'Delivered'")
     List<ShipmentDTO> findShipmentsNotDelivered();
     @Query("SELECT new informatics.logisticcompany.dto.shipment.ShipmentDTO(s.id, s.uuid, s.destination, s.weight, s.created, s.total, s.sender.firstname, s.recipient.firstname, s.registeredBy.firstName, s.deliveryType.name, s.shipmentStatus.shipmentStatus.name, s.logisticCompany.name, s.pricingTier.id) FROM Shipment s WHERE s.id = :id")
     ShipmentDTO findByIdWithShipmentDTO(Long id);
