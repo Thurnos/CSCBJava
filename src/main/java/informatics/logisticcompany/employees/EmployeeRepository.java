@@ -52,7 +52,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("SELECT new informatics.logisticcompany.dto.employee.EmployeeDTO(e.id, e.firstName, e.lastName, e.birthDate, e.logisticCompany.name, e.officeBranch.name, e.position.name) FROM Employee e WHERE e.username = :username")
     EmployeeDTO findWithEmployeeDTOByUsername(String username);
-
-
-
 }
